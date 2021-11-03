@@ -1,0 +1,51 @@
+﻿@model SIGEM_BIDSS.Models.tbTipoMovimiento
+
+@{
+    ViewBag.Title = "Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-info  mr-1"></i>
+            Detalle Tipo Movimiento
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="form-horizontal">
+        <div class="card-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.tipmo_id)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tipmo_id)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.tipmo_Movimiento)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tipmo_Movimiento)
+                </dd>
+
+            </dl>
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-10">
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.tipmo_id }, new { @class = "btn btn-primary btn-sm" })
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+
+

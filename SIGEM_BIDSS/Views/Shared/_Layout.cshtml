@@ -1,0 +1,91 @@
+﻿@{
+    System.Globalization.CultureInfo.CurrentCulture = new System.Globalization.CultureInfo("es-ES", false);
+    System.Globalization.CultureInfo.CurrentUICulture = new System.Globalization.CultureInfo("es-ES", false);
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>SIGEM | BI DSS</title>
+    <!-- Font Awesome -->
+    @Styles.Render("~/Content/font-awesome")
+    <!-- SweetAlert2 -->
+    @Styles.Render("~/Content/sweetalert2")
+    <!-- Theme style -->
+    @Styles.Render("~/Content/adminlte")
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+
+    <style>
+        .validation-error {
+            color: red;
+            font-size: small;
+        }
+
+        .validation-summary-errors {
+            color: red;
+            font-size: small;
+        }
+
+        .required:after {
+            content: "*";
+            font-weight: bold;
+            color: red;
+        }
+
+        .textuppercase {
+            text-transform: uppercase;
+        }
+    </style>
+
+
+</head>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        @Html.Partial("_TopNavbar")
+
+        @Html.Partial("_Sidebar")
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </section>
+        </div>
+
+        @Html.Partial("_Footer")
+    </div>
+    @Scripts.Render("~/Scripts/jquery")
+    @Scripts.Render("~/Scripts/jquery-ui")
+    @Scripts.Render("~/Scripts/bootstrap")
+    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/Scripts/adminlte")
+
+    <!-- SweetAlert2 -->
+    @Scripts.Render("~/Scripts/sweetalert2")
+    <script>
+
+        $(function () {
+            window.history.pushState(null, "", window.location.href);
+            window.onpopstate = function () {
+                window.history.pushState(null, "", window.location.href);
+            };
+        })
+    </script>
+</body>
+</html>

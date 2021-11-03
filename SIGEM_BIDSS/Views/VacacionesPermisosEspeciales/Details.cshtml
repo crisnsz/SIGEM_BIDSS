@@ -1,0 +1,160 @@
+﻿@model SIGEM_BIDSS.Models.tbVacacionesPermisosEspeciales
+@using SIGEM_BIDSS.Models
+
+@{
+    ViewBag.Title = "Detalle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-upload mr-1"></i>
+            Solicitud de Vacaciones 
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="form-horizontal">
+        <div class="card-body">
+            @Html.HiddenFor(model => model.VPE_Id)
+            <dl class="form-row">
+                <div class="form-group col-md-3">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.VPE_Correlativo)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.VPE_Correlativo)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.emp_Id)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.tbEmpleado.emp_Nombres) @Html.DisplayFor(model => model.tbEmpleado.emp_Apellidos)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.VPE_JefeInmediato)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.tbEmpleado1.emp_Nombres)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.VPE_FechaInicio)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.VPE_FechaInicio)
+                    </dd>
+                </div>
+                <div class="form-group col-md-3">
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.VPE_GralFechaSolicitud)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.VPE_GralFechaSolicitud)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.tperm_Id)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.tbTipoPermiso.tperm_Descripcion)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.VPE_CantidadDias)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.VPE_CantidadDias)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.VPE_FechaFin)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.VPE_FechaFin)
+                    </dd>
+
+                </div>
+
+                <div class="form-group col-md-3">
+
+
+                    @if (Model.VPE_Comentario != GeneralFunctions.stringDefault)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.VPE_Comentario)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.VPE_Comentario)
+                        </dd>
+                    }
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.est_Id)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.tbEstado.est_Descripcion)
+                    </dd>
+                 
+                    @if (Model.est_Id == GeneralFunctions.Rechazada)
+                    {
+
+
+                        if (Model.VPE_RazonRechazo != GeneralFunctions.stringDefault)
+                        {
+                            <dt>
+                                @Html.DisplayNameFor(model => model.VPE_RazonRechazo)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.VPE_RazonRechazo)
+                            </dd>
+                        }
+                    }
+
+                </div>
+            </dl>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @if (Model.est_Id == GeneralFunctions.Revisada)
+                    {
+                        <input type="button" id="Approve" class="btn btn-primary" data-toggle="modal" data-target="#ModalApprove" value="AprobarJefe" />
+                        <input type="button" id="ApproveAdmin" class="btn btn-primary" data-toggle="modal" data-target="#ModalApproveAdmin" value="AprobarAdmin" />
+                        <input type="button" id="Reject" class="btn btn-danger" data-toggle="modal" data-target="#ModalReject" value="Rechazar" />
+                    }
+                    else
+                    {
+                        <input disabled type="button" id="Approve" class="btn btn-primary" data-toggle="modal" data-target="#ModalApprove" value="Aprobar" />
+                        <input disabled type="button" id="Reject" class="btn btn-danger" data-toggle="modal" data-target="#ModalReject" value="Rechazar" />
+                    }
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_Modales")
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/app/General_Details.js"></script>
+    <script src="~/Scripts/app/Solicitud/VacacionesPermisosEspeciales/Modals.js"></script>
+}

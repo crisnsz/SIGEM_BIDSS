@@ -1,0 +1,222 @@
+﻿@model SIGEM_BIDSS.Models.tbProducto
+@using SIGEM_BIDSS.Models
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+
+<link href="~/Content/template/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/template/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-refresh  mr-1"></i>
+            Editar Producto
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    @using (Html.BeginForm("Edit", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="card-body">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.prod_Id)
+                @Html.HiddenFor(model => model.prod_Codigo)
+                @Html.HiddenFor(model => model.tbProductoSubcategoria.pcat_Id)
+                @Html.HiddenFor(model => model.pscat_Id)
+               
+
+                <div class="card-body">
+                    @*<div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label class="control-label col-md-8">Categorías</label>
+                            @Html.DropDownList("pcat_Id", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                            @Html.EditorFor(model => model.tbProductoSubcategoria.tbProductoCategoria.pcat_Descripcion, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.prod_UsuarioCrea, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.pscat_Id, htmlAttributes: new { @class = "control-label col-md-6" })
+                            @Html.DropDownList("pscat_Id", null, htmlAttributes: new { @class = "form-control" , @readonly = "readonly"})
+                            @Html.EditorFor(model => model.tbProductoSubcategoria.pscat_Descripcion, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.pscat_Id, "", new { @class = "text-danger", @id = "subcate" })
+                        </div>
+                    </div>*@
+
+
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.prod_Codigo, htmlAttributes: new { @class = "control-label col-sm-8" })
+
+                            @Html.EditorFor(model => model.prod_Codigo, new { htmlAttributes = new { @class = "form-control", @maxlength = "15", @onkeypress = "return soloNumeros(event)", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.prod_Codigo, "", new { @class = "text-danger", @Id = "codigo" })
+
+                        </div>
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.prod_CodigoBarras, htmlAttributes: new { @class = "control-label col-sm-6" })
+
+                             @Html.EditorFor(model => model.prod_CodigoBarras, new { htmlAttributes = new { @class = "form-control", @maxlength = "15", @onkeypress = "return soloNumeros(event)" } })
+                            @Html.ValidationMessageFor(model => model.prod_CodigoBarras, "", new { @class = "text-danger", @Id = "barras" })
+
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.prod_Descripcion, htmlAttributes: new { @class = "control-label col-sm-8" })
+
+                            @Html.EditorFor(model => model.prod_Descripcion, new { htmlAttributes = new { @class = "form-control", @maxlength = "150", @autocomplete = "off", @style = "text-transform:uppercase;", @onkeypress = "return soloLetras(event)", @onkeyup = "noespaciosincio(this)" } })
+                            @Html.ValidationMessageFor(model => model.prod_Descripcion, "", new { @class = "text-danger", @Id = "descripcion" })
+
+                        </div>
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.prod_Marca, htmlAttributes: new { @class = "control-label col-sm-6" })
+
+                            @Html.EditorFor(model => model.prod_Marca, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @autocomplete = "off", @style = "text-transform:uppercase;", @onkeypress = "return soloLetras(event)", @onkeyup = "noespaciosincio(this)" } })
+                            @Html.ValidationMessageFor(model => model.prod_Marca, "", new { @class = "text-danger", @Id = "marca" })
+
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.prod_Modelo, htmlAttributes: new { @class = "control-label col-sm-8" })
+
+                            @Html.EditorFor(model => model.prod_Modelo, new { htmlAttributes = new { @class = "form-control", @maxlength = "25", @onkeypress = "return soloNumeros(event)" } })
+                            @Html.ValidationMessageFor(model => model.prod_Modelo, "", new { @class = "text-danger", @Id = "modelo" })
+
+                        </div>
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.prod_Talla, htmlAttributes: new { @class = "control-label col-sm-6" })
+
+                            @Html.EditorFor(model => model.prod_Talla, new { htmlAttributes = new { @class = "form-control", @maxlength = "15", @autocomplete = "off", @style = "text-transform:uppercase;", @onkeypress = "return soloLetras(event)", @onkeyup = "noespaciosincio(this)" } })
+                            @Html.ValidationMessageFor(model => model.prod_Talla, "", new { @class = "text-danger", @Id = "talla" })
+
+                        </div>
+
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.prod_Color, htmlAttributes: new { @class = "control-label col-sm-8" })
+
+                            @Html.EditorFor(model => model.prod_Color, new { htmlAttributes = new { @class = "form-control", @maxlength = "20", @autocomplete = "off", @style = "text-transform:uppercase;", @onkeypress = "return soloLetras(event)", @onkeyup = "noespaciosincio(this)" } })
+                            @Html.ValidationMessageFor(model => model.prod_Color, "", new { @class = "text-danger", @Id = "color" })
+
+                        </div>
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.uni_Id, htmlAttributes: new { @class = "control-label col-md-6" })
+                            @Html.DropDownList("uni_Id", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.uni_Id, "", new { @class = "text-danger", @id = "medida" })
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.prov_Id, htmlAttributes: new { @class = "control-label col-md-6" })
+                            @Html.DropDownList("prov_Id", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.prov_Id, "", new { @class = "text-danger", @id = "proveedor" })
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.prod_EsActivo, new { @class = "control-label col-md-6" })
+                            @if (Model.prod_EsActivo == true)
+                            {
+
+                                <input type="text" placeholder="ACTIVA" name="Activa" readonly class="form-control">
+                            }
+                            else
+                            {
+
+                                <input type="text" placeholder="INACTIVA" name="Inactiva" readonly class="form-control">
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+
+                    @if (Model.prod_EsActivo == GeneralFunctions.ProductoActivo)
+                    {
+                        <input type="submit" value="Guardar" class="btn btn-primary" id="btnGuardar" />
+                        <button type="button" id="inactivar" name="inactivar" class="btn btn-danger" data-toggle="modal" data-target="#ModalAnular">
+                            Inactivar
+                        </button>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Activar", "Estadoactivar", new { id = Model.prod_Id }, new { @class = "btn btn-primary" })
+                    }
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-white" })
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+    }
+
+</div>
+
+@section Scripts {
+    <!-- Bootstrap 4 -->
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/template/plugins/datatables/dataTables.bootstrap4.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/template/dist/js/adminlte.min.js"></script>
+
+
+
+    <script src="~/Scripts/app/InActivarProducto.js"></script>
+    <script src="~/Scripts/app/SubCategoriaProductoEdit.js"></script>
+
+}
+
+
+<div class="modal fade" id="ModalAnular" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Inactivar Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Ingrese Razón Inactivación</p>
+                <textarea id="razonInac" class="form-control normalize"></textarea>
+                <p id="Mensaje" style="color:red"></p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" type="button" id="Inactivar">Guardar</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>

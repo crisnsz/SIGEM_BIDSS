@@ -1,0 +1,71 @@
+﻿@model SIGEM_BIDSS.Models.tbDeduccionInstitucionFinanciera
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-info  mr-1"></i>
+            Detalle Deducción Institución Finaciera
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="form-horizontal">
+        <div class="card-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    ID
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.deif_IdDeduccionInstFinanciera)
+                </dd>
+                <dt>
+                   Institución
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbInstitucionFinanciera.insf_Nombre)
+                </dd>
+                <dt>
+                    Empleados
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbEmpleado.emp_Nombres)
+                </dd>
+                <dt>
+                    Monto
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.deif_Monto)
+                </dd>
+                <dt>
+                    Comenntarios
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.deif_Comentarios)
+                </dd>
+            </dl>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-10">
+            @Html.ActionLink("Editar", "Edit", new { id = Model.deif_IdDeduccionInstFinanciera }, new { @class = "btn btn-primary btn-sm" })
+
+        </div>
+    </div>
+</div>
+
+

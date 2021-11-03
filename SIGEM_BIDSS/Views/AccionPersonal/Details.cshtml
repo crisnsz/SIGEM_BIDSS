@@ -1,0 +1,131 @@
+﻿@model SIGEM_BIDSS.Models.tbAccionPersonal
+@using SIGEM_BIDSS.Models
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-upload mr-1"></i>
+            Solicitud Anticipo de viático
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="form-horizontal">
+        <div class="card-body">
+            @Html.HiddenFor(model => model.Acp_Id)
+            <dl class="form-row">
+                <div class="form-group col-md-3">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Acp_Correlativo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Acp_Correlativo)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.tbEmpleado1.emp_Nombres) Y  @Html.DisplayNameFor(model => model.tbEmpleado1.emp_Apellidos)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.tbEmpleado1.emp_Nombres) @Html.DisplayFor(model => model.tbEmpleado1.emp_Apellidos)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Acp_FechaSolicitud)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Acp_FechaSolicitud)
+                    </dd>
+
+
+                </div>
+
+                <div class="form-group col-md-3">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.tipmo_id)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.tbTipoMovimiento.tipmo_Movimiento)
+                    </dd>
+
+
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Acp_Comentario)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Acp_Comentario)
+                    </dd>
+                    <dt>
+                        Jefe Inmediato
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.tbEmpleado.emp_Nombres) @Html.DisplayFor(model => model.tbEmpleado.emp_Apellidos)
+                    </dd>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @if (Model.est_Id == GeneralFunctions.Rechazada)
+                    {
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.est_Id)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.tbEstado.est_Descripcion)
+                        </dd>
+                        if (Model.Acp_RazonRechazo != GeneralFunctions.stringDefault)
+                        {
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Acp_RazonRechazo)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Acp_RazonRechazo)
+                            </dd>
+                        }
+                    }
+
+                </div>
+            </dl>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @if (Model.est_Id == GeneralFunctions.Revisada)
+                    {
+                        <input type="button" id="Approve" class="btn btn-primary" data-toggle="modal" data-target="#ModalApprove" value="AprobarJefe" />
+                        <input type="button" id="ApproveAdmin" class="btn btn-primary" data-toggle="modal" data-target="#ModalApproveAdmin" value="AprobarAdmin" />
+                        <input type="button" id="Reject" class="btn btn-danger" data-toggle="modal" data-target="#ModalReject" value="Rechazar" />
+                    }
+                    else
+                    {
+                        <input disabled type="button" id="Approve" class="btn btn-primary" data-toggle="modal" data-target="#ModalApprove" value="Aprobar" />
+                        <input disabled type="button" id="Reject" class="btn btn-danger" data-toggle="modal" data-target="#ModalReject" value="Rechazar" />
+                    }
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@Html.Partial("_Modales")
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/app/General_Details.js"></script>
+    <script src="~/Scripts/app/Solicitud/AccionPersonal/Modals.js"></script>
+}

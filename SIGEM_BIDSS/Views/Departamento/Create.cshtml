@@ -1,0 +1,144 @@
+﻿@model SIGEM_BIDSS.Models.tbDepartamento
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+
+<link href="~/Content/template/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/template/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+
+
+<style>
+    .validation-error {
+        color: red;
+        font-size: small;
+    }
+
+    .validation-summary-errors {
+        color: red;
+        font-size: small;
+    }
+
+    .required:after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+
+    #tps_nombre {
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-upload mr-1"></i>
+            Insertar Departamento
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="card-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <form>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.dep_Codigo, htmlAttributes: new { @class = "control-label col-sm-8" })
+
+                                @Html.EditorFor(model => model.dep_Codigo, new { htmlAttributes = new { @class = "form-control", @maxlength = "2", @onkeypress = "return soloNumeros(event)" } })
+                                <div id="ValidationDepCodigoCreate">
+                                    @Html.ValidationMessageFor(model => model.dep_Codigo, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.dep_Nombre, htmlAttributes: new { @class = "control-label col-sm-4" })
+
+                                @Html.EditorFor(model => model.dep_Nombre, new { htmlAttributes = new { @class = "form-control", @maxlength = "100", @autocomplete = "off", @style = "text-transform:uppercase;", @onkeypress = "return soloLetras(event)", @onkeyup = "noespaciosincio(this)" } })
+                                <div id="ValidationDepNombreCreate">
+                                    @Html.ValidationMessageFor(model => model.dep_Nombre, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </form>
+
+                <div class="ibox float-e-margins">
+
+                    <div class="ibox-content">
+                        <div class="form-horizontal">
+                            @Html.Partial("_CrearMunicipio", new SIGEM_BIDSS.Models.tbMunicipio())
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-10">
+                        <input id="Valida" disabled type="submit" value="Guardar" class="btn btn-primary" />
+                        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Content/template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/template/plugins/datatables/dataTables.bootstrap4.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/template/dist/js/adminlte.min.js"></script>
+
+    <script src="~/Scripts/app/General.js"></script>
+    <script src="~/Scripts/app/Municipio.js"></script>
+    <script src="~/Scripts/app/Departamento.js"></script>
+
+    <script>
+        function soloLetras(e) {
+            key = e.keyCode || e.which;
+            tecla = String.fromCharCode(key).toLowerCase();
+            letras = " -+'/áéíóúabcdefghijklmnñopqrstuvwxyz";
+            especiales = "8-37-39-46";
+
+            tecla_especial = false
+            for (var i in especiales) {
+                if (key == especiales[i]) {
+                    tecla_especial = true;
+                    break;
+                }
+            }
+
+            if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+                return false;
+            }
+        }
+    </script>
+
+
+}

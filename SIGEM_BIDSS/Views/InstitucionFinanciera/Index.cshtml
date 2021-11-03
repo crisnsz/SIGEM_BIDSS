@@ -1,0 +1,229 @@
+﻿@model IEnumerable<SIGEM_BIDSS.Models.tbInstitucionFinanciera>
+@using SIGEM_BIDSS.Models
+
+@{
+    SIGEM_BIDSS.Models.tbInstitucionFinanciera tbInstitucionFinanciera = new SIGEM_BIDSS.Models.tbInstitucionFinanciera();
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/template/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/template/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-list mr-1"></i>
+            Listado Institución Financiera
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink(" Nuevo", "Create", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="dataTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.insf_Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.insf_Contacto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.insf_Correo)
+                    </th>
+
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr data-id="@item.insf_Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.insf_Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.insf_Contacto)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.insf_Correo)
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.insf_Id }, new { @class = "btn btn-primary btn-xs" })
+                            @Html.ActionLink("Detalles", "Details", new { id = item.insf_Id }, new { @class = "btn btn-default btn-xs" })
+
+
+                            @if (item.insf_Activo == GeneralFunctions.instfinAceptar)
+                            {
+                                <input type="button" id="Desactivar" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#ModalRazonInactivacion" value="Inactivar" />
+                                <input type="hidden" id="_Insf_Id" value="@item.insf_Id" />
+                            }
+                            else if (item.insf_Activo == GeneralFunctions.instfinDenegar)
+                            {
+                                <input type="button" id="Activar" class="btn btn-success btn-xs" data-toggle="modal" data-target="#ModalRazonActivacion" Style = "width:55px" value="Activar" />
+                                <input type="hidden" id="_Insf_Id" value="@item.insf_Id" />
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="ModalRazonInactivacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input id="instfinanciera" type="hidden" />
+                <h4 class="modal-title" id="myModalLabel">¿Está seguro que desea inactivar el registro seleccionado?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+           
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" type="submit" id="btnRaInac">Inactivar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalRazonActivacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input id="instfinanciera" type="hidden" />
+                <h4 class="modal-title" id="myModalLabel">¿Está seguro que desea activar el registro seleccionado?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" type="submit" id="btnAc">Activar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+
+    <!-- DataTables -->
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/template/plugins/datatables/dataTables.bootstrap4.js"></script>
+
+
+    <script>
+
+
+        $(document).on("click", "#dataTable tbody tr td input#Activar", function () {
+            _Insf_Id = $(this).closest('tr').data('id');
+            $("#instfinanciera").val(_Insf_Id);
+        })
+
+
+        $('#btnAc').click(function () {
+            insf_Id = $("#instfinanciera").val()
+            $.ajax({
+                url: "/InstitucionFinanciera/ActivarInstitucionFinanciera",
+                method: "POST",
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ insf_Id: insf_Id }),
+                success: function () {
+
+                    location.reload();
+                }
+            })
+                .done(function (data) {
+                
+                    window.location.href = "/institucionFinanciera/Index"
+                });
+        });
+
+
+
+        $(document).on("click", "#dataTable tbody tr td input#Desactivar", function () {
+            _Insf_Id = $(this).closest('tr').data('id');
+            $("#instfinanciera").val(_Insf_Id);
+            console.log(_Insf_Id)
+        })
+     
+       
+        $('#btnRaInac').click(function () {
+            insf_Id = $("#instfinanciera").val()
+            $.ajax({
+                url: "/InstitucionFinanciera/InactivarInstitucionFinanciera",
+                method: "POST",
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ insf_Id: insf_Id }),
+            })
+                .done(function (data) {
+                    $("_tbInac_Id").val("");
+                    window.location.href = "/institucionFinanciera/Index"
+                });
+        });
+
+
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTable').DataTable(
+                {
+                    "searching": true,
+                    "lengthChange": true,
+                    "oLanguage": {
+                        "oPaginate": {
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior",
+                        },
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sEmptyTable": "No hay registros",
+                        "sInfoEmpty": "Mostrando 0 de 0 Entradas",
+                        "sSearch": "Buscar",
+                        "sInfo": "Mostrando _START_ a _END_ Entradas",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    }
+                });
+        });
+        $(function () {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            _isBool = $('#vSwal').val();
+            console.log(_isBool)
+            if (_isBool == "true") {
+                console.log("Verdadero")
+
+                Toast.fire({
+                    type: 'success',
+                    title: 'Se ha guardado con Exito.'
+                })
+            }
+            else {
+                console.log("Falso")
+            }
+        });
+    </script>
+
+
+
+    }

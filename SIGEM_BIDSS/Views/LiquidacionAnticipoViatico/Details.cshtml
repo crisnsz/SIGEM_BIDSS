@@ -1,0 +1,137 @@
+﻿@model SIGEM_BIDSS.Models.tbLiquidacionAnticipoViatico
+@using SIGEM_BIDSS.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-info  mr-1"></i>
+          Liquidación Anticipo Viáticos
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="form-horizontal">
+        <div class="card-body">
+            <dl class="dl-horizontal card-columns">
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Lianvi_Id)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Lianvi_Id)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Lianvi_Correlativo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Lianvi_Correlativo)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Lianvi_Comentario)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Lianvi_Comentario)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Lianvi_FechaInicioViaje)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Lianvi_FechaInicioViaje)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Lianvi_FechaFinViaje)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Lianvi_FechaFinViaje)
+                </dd>
+
+
+                <div class="form-group col-md-3">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.est_Id)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.tbEstado.est_Descripcion)
+                    </dd>
+
+                    @if (Model.est_Id == GeneralFunctions.Rechazada)
+                    {
+
+
+                        if (Model.Lianvi_RazonRechazo != GeneralFunctions.stringDefault)
+                        {
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Lianvi_RazonRechazo)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Lianvi_RazonRechazo)
+                            </dd>
+                        }
+                    }
+
+                </div>
+
+
+
+
+            </dl>
+
+
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @if (Model.est_Id == GeneralFunctions.Revisada)
+                    {
+                        <input type="button" id="Approve" class="btn btn-primary" data-toggle="modal" data-target="#ModalApprove" value="AprobarJefe" />
+                        <input type="button" id="ApproveAdmin" class="btn btn-primary" data-toggle="modal" data-target="#ModalApproveAdmin" value="AprobarAdmin" />
+                        <input type="button" id="Reject" class="btn btn-danger" data-toggle="modal" data-target="#ModalReject" value="Rechazar" />
+                    }
+                    else
+                    {
+                        <input disabled type="button" id="Approve" class="btn btn-primary" data-toggle="modal" data-target="#ModalApprove" value="Aprobar" />
+                        <input disabled type="button" id="Reject" class="btn btn-danger" data-toggle="modal" data-target="#ModalReject" value="Rechazar" />
+                    }
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.Partial("_Details", (List<SIGEM_BIDSS.Models.tbLiquidacionAnticipoViaticoDetalle>)ViewBag.IdFull)
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+
+</div>
+
+@Html.Partial("_Modales")
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/app/General_Details.js"></script>
+    <script src="~/Scripts/app/Solicitud/ModalesLiquidacionViaticos.js"></script>
+}
+
+

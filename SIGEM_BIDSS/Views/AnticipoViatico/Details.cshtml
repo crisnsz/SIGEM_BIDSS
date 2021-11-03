@@ -1,0 +1,151 @@
+﻿@model SIGEM_BIDSS.Models.tbAnticipoViatico
+@using SIGEM_BIDSS.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-upload mr-1"></i>
+            Solicitud Anticipo de viático
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="form-horizontal">
+        <div class="card-body">
+            @Html.HiddenFor(model => model.Anvi_Id)
+            <dl class="form-row">
+                <div class="form-group col-md-3">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Anvi_Correlativo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Anvi_Correlativo)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.tbEmpleado.emp_Nombres) Y  @Html.DisplayNameFor(model => model.tbEmpleado.emp_Apellidos)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.tbEmpleado.emp_Nombres) @Html.DisplayFor(model => model.tbEmpleado.emp_Apellidos)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Anvi_GralFechaSolicitud)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Anvi_GralFechaSolicitud)
+                    </dd>
+                </div>
+                <div class="form-group col-md-3">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Anvi_FechaViaje)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Anvi_FechaViaje)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Anvi_Cliente)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Anvi_Cliente)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Anvi_PropositoVisita)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Anvi_PropositoVisita)
+                    </dd>
+                </div>
+                <div class="form-group col-md-3">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Anvi_DiasVisita)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Anvi_DiasVisita)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Anvi_Hospedaje)
+                    </dt>
+                    <dd>
+                        @if (Model.Anvi_Hospedaje == true)
+                        {
+                            <p> SI</p>
+                        }
+                        else
+                        {
+                            <p>NO</p>
+                        }
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Anvi_Comentario)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Anvi_Comentario)
+                    </dd>
+                </div>
+
+                <div class="form-group col-md-3">
+                    @if (Model.est_Id == GeneralFunctions.Rechazada)
+                    {
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.est_Id)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.tbEstado.est_Descripcion)
+                        </dd>
+                        if (Model.Anvi_RazonRechazo != GeneralFunctions.stringDefault)
+                        {
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Anvi_RazonRechazo)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Anvi_RazonRechazo)
+                            </dd>
+                        }
+                    }
+
+                </div>
+            </dl>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @if (Model.est_Id == GeneralFunctions.Revisada)
+                    {
+                        <input type="button" id="Approve" class="btn btn-primary" data-toggle="modal" data-target="#ModalApprove" value="AprobarJefe" />
+                        <input type="button" id="ApproveAdmin" class="btn btn-primary" data-toggle="modal" data-target="#ModalApproveAdmin" value="AprobarAdmin" />
+                        <input type="button" id="Reject" class="btn btn-danger" data-toggle="modal" data-target="#ModalReject" value="Rechazar" />
+                    }
+                    else
+                    {
+                        <input disabled type="button" id="Approve" class="btn btn-primary" data-toggle="modal" data-target="#ModalApprove" value="Aprobar" />
+                        <input disabled type="button" id="Reject" class="btn btn-danger" data-toggle="modal" data-target="#ModalReject" value="Rechazar" />
+                    }
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@Html.Partial("_Modales")
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/app/General_Details.js"></script>
+
+    <script src="~/Scripts/app/Solicitud/AnticipoViatico/Modals.js"></script>
+}

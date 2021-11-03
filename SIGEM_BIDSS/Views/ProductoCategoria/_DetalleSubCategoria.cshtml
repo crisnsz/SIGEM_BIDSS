@@ -1,0 +1,30 @@
+﻿@model SIGEM_BIDSS.Models.tbProductoSubcategoria
+
+<div>
+    <h4>Detalle ProductoSubcategoria</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.pscat_Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pscat_Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pscat_EsActiva)
+        </dt>
+
+        <dd>
+            @if (Model.pscat_EsActiva == true)
+            {
+                <p> Activo</p>
+            }
+            else
+            {
+                <p>Inactivo</p>
+            }
+        </dd>
+    </dl>
+</div>

@@ -1,0 +1,177 @@
+﻿@model SIGEM_BIDSS.Models.tbEmpleado
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>tbEmpleado</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_Nombres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_Nombres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_Apellidos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_Apellidos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_Sexo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_Sexo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_FechaNacimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_FechaNacimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_Identificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_Identificacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_Telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_CorreoElectronico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_CorreoElectronico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_FechaIngreso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_FechaIngreso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_Direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_Direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_RazonInactivacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_RazonInactivacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.est_Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbEstado.est_Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_PathImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_PathImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_UsuarioCrea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_UsuarioCrea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_FechaCrea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_FechaCrea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_UsuarioModifica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_UsuarioModifica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emp_FechaModifica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emp_FechaModifica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbMunicipio.dep_codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbMunicipio.dep_codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbPuesto.pto_Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbPuesto.pto_Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbTipoSangre.tps_Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbTipoSangre.tps_Descripcion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" >
+  <xsl:template match="principal">
+    <body xmlns="http://www.w3.org/1999/xhtml"  width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #222222;">
+      <center style="width: 100%; background-color: #f1f1f1;">
+        <div style="max-width: 600px; margin: 0 auto;" class="email-container">
+          <!-- BEGIN BODY -->
+          <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
+            <tr>
+              <td class="bg_white">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                  <tr>
+                    <td class="bg_dark email-section" style="text-align:center;background: rgba(0, 0, 0, .8);padding: 2.5em;">
+                      <div class="heading-section heading-section-white" style="color: rgba(255, 255, 255, .8);">
+                        <span class="subheading" style="margin-bottom: 20px !important;display: inline-block;font-size: 13px;text-transform: uppercase;letter-spacing: 2px;color: rgba(255, 255, 255, .4);position: relative;">Bienvenido</span>
+                        <h2 style="font-size: 28px;font-family: line-height: 1;padding-bottom: 0;color: #000000;color: #ffffff;font-size: 28px;margin-top: 0;line-height: 1.4;">
+                          <xsl:value-of select="welcome"/>
+                        </h2>
+                      </div>
+                    </td>
+                  </tr>
+                  <!-- end: tr -->
+                  <tr>
+                    <td class="bg_white email-section" style=" background: #ffffff;padding: 2.5em;">
+                      <div class="heading-section" style="text-align: center; padding: 0 30px;">
+                        <span class="subheading" style="margin-bottom: 24px !important;display: inline-block;font-size: 13px;text-transform: uppercase;letter-spacing: 2px;color: rgba(0, 0, 0, .4);position: relative;">
+                          <xsl:value-of select="nref"/>
+                        </span>
+                        <p>
+                          <h2 style="padding-bottom: 0;color: rgba(0, 0, 0, .4);font-size: 28px;margin-top: 0;line-height: 1.4;">
+                            <xsl:value-of select="EmployeeName"/>
+                          </h2>
+                        </p>
+                        <p style="color: rgba(0, 0, 0, .4);">
+                          <h2 style="padding-bottom: 0;color: rgba(0, 0, 0, .4);font-size: 26px;margin-top: 0;line-height: 1.4;">
+                            <xsl:value-of select="msj"/>.
+                          </h2>
+                        </p>
+                        <p style="color: rgba(0, 0, 0, .4);">
+                          <h2 style="padding-bottom: 0;color: rgba(0, 0, 0, .4);font-size: 32px;margin-top: 0;line-height: 1.4;">
+                            <xsl:value-of select="msjRazon"/>
+                          </h2>
+                        </p>
+                      </div>
+                      <div class="heading-section" style="text-align: center; padding: 0 30px;">
+                        <span xmlns="http://www.w3.org/1999/xhtml" style="position: absolute;left: 0;right: 0;top:240px;content: '';width: 7%;height: 2px;background: #f3a333;margin: 0 auto;"></span>
+                        <p>
+                          <h2 style="padding-bottom: 0;color: rgba(0, 0, 0, .4);font-size: 28px;margin-top: 0;line-height: 1.4;">
+                            <xsl:value-of select="RazonRechazo"/>
+                          </h2>
+                        </p>
+                      </div>
+                      <div style="text-align: center; padding: 0 30px;">
+                        <p style="color: rgba(0, 0, 0, .4);">
+                          <span class="subheading" style="margin-bottom: 24px !important;display: inline-block;font-size: 18px;text-transform: uppercase;letter-spacing: 2px;color: rgba(0, 0, 0, .4);position: relative;">
+                            <xsl:value-of select="approver"/>
+                          </span>
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                  <!-- end: tr -->
+                  <tr>
+                    <td class="bg_light email-section" style="padding: 0; width: 100%;background: #fafafa;">
+                      <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" >
+                        <tr style="padding-top: 120px;">
+                          <td valign="middle" width="20%" >
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                              <tr>
+                                <td>
+                                  <img src="https://i.postimg.cc/htHVmn64/logo.png" alt="" style="width: 100%; max-width: 600px; height: auto; margin: auto; display: block;"></img>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td valign="middle" width="50%" style="padding-top: 0px;background-color:rgb(15, 52, 147);border-radius: 0px 0px 0px 65px ">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                              <tr>
+                                <td class="text-services" style="text-align: left; padding: 20px 30px;padding-left: 0;padding-right: 20px;text-align: left;max-width: 500px">
+                                  <div class="heading-section heading-section-white" style="color: #000000;font-size: 28px;margin-top: 0;line-height: 1.4;color: rgba(255, 255, 255, .8);">
+                                    <h2 style="padding-left:20%;color: #ffffff;font-size: 28px;margin-top: 0;padding-bottom: 0;font-family: serif;margin-top: 0;">SIGEM</h2>
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+
+                        </tr>
+                        <tr>
+                          <td class="text-services" style="text-align: left; padding: 30px 30px;padding: 10px 10px 0;text-align: center;">
+                            <div class="heading-section">
+                            </div>
+                          </td>
+
+                        </tr>
+                      </table>
+                    </td>
+
+                  </tr>
+                  <!-- end: tr -->
+
+                </table>
+
+              </td>
+            </tr>
+            <!-- end:tr -->
+            <!-- 1 Column Text + Button : END -->
+          </table>
+        </div>
+      </center>
+    </body>
+
+  </xsl:template>
+</xsl:stylesheet>

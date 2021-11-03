@@ -1,0 +1,160 @@
+﻿@model SIGEM_BIDSS.Models.tbParametro
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-upload mr-1"></i>
+            Crear Parámetro
+        </h3>
+    </div>
+
+    @using (Html.BeginForm("Create", "Parametro", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmCreateParametro" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <div class="card-body">
+                @Html.ValidationSummary(true, null, new { @class = "text-danger" })
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <div class="col-md-6 card-body box-profile">
+                            <img src="~/Content/img/descarga.jpg" class="product-image" id="imgpreview" width="280" height="230" style="border-width: 0px;" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.par_PathLogo, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div class="custom-file col-md-11">
+                                <input id="CargarFoto" value="Cargar Fotografía" max-size=32154 name="FotoPath" type="file" class="custom-file-input col-md-6" accept="image/png, image/jpeg">
+                                <label id="lblCargarFoto" style="width:400px" class="custom-file-label" for="CargarFoto"></label>
+
+                            </div>
+                            @Html.ValidationMessageFor(model => model.par_PathLogo, null, new { @class = "text-danger", @id = "errorlogo" })
+                            <div class="input-group-append">
+                            </div>
+                        </div>
+                        <p id="ImageLength" style="color:red"></p>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_NombreEmpresa, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_NombreEmpresa, new { htmlAttributes = new { @class = "form-control", @maxlength = "100", @autocomplete = "off", @onkeypress = "return soloLetras(event)", @style = "text-transform:uppercase;" } })
+                            @Html.ValidationMessageFor(model => model.par_NombreEmpresa, null, new { @class = "text-danger", id = "errornombreempresa" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_TelefonoEmpresa, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_TelefonoEmpresa, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @autocomplete = "off", @onkeypress = "return soloLetras(event)" } })
+                            @Html.ValidationMessageFor(model => model.par_TelefonoEmpresa, null, new { @class = "text-danger", id = "errortelefonoempresa" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_CorreoEmpresa, htmlAttributes: new { @class = "control-label col-md-10" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_CorreoEmpresa, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @autocomplete = "off" } })
+                            <p id="emailOK" style="color:red">@Html.ValidationMessageFor(model => model.par_CorreoEmpresa, "", new { @class = "text-danger" })</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_CorreoEmisor, htmlAttributes: new { @class = "control-label col-md-8" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_CorreoEmisor, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @autocomplete = "off" } })
+                            <p id="emailEoK" style="color:red">@Html.ValidationMessageFor(model => model.par_CorreoEmisor, "", new { @class = "text-danger" })</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_PorcentajeAdelantoSalario, htmlAttributes: new { @class = "control-label col-md-8" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_PorcentajeAdelantoSalario, new { htmlAttributes = new { @class = "form-control", @minlength = "2", @maxlength = "5", @type = "text", @autocomplete = "off", @onkeypress = "return soloNumerosP(event)", id = "porcentaje" } })
+                            @Html.ValidationMessageFor(model => model.par_PorcentajeAdelantoSalario, null, new { @class = "text-danger", id = "errorPorcentaje" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_FrecuenciaAdelantoSalario, htmlAttributes: new { @class = "control-label col-md-8" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_FrecuenciaAdelantoSalario, new { htmlAttributes = new { @class = "form-control", @minlength = "1", @maxlength = "2", @type = "text", @autocomplete = "off", @onkeypress = "return soloNumeros(event)" , id = "frecuencia"} })
+                            @Html.ValidationMessageFor(model => model.par_FrecuenciaAdelantoSalario, null, new { @class = "text-danger", id = "errorfrecuencia" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_CorreoRRHH, htmlAttributes: new { @class = "control-label col-md-8" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_CorreoRRHH, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @autocomplete = "off" } })
+                            <p id="emailEoKi" style="color:red">@Html.ValidationMessageFor(model => model.par_CorreoRRHH, "", new { @class = "text-danger" })</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_Password, htmlAttributes: new { @class = "control-label col-md-8" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_Password, new { htmlAttributes = new { @class = "form-control", @maxlength = "20", @autocomplete = "off", @type = "password", @onkeypress = "return Passworddd(event)" } })
+                            @Html.ValidationMessageFor(model => model.par_Password, null, new { @class = "text-danger", id = "errorpassword" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_Puerto, htmlAttributes: new { @class = "control-label col-md-8" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_Puerto, new { htmlAttributes = new { @class = "form-control", @minlength = "2", @maxlength = "4", @type = "text", @autocomplete = "off", @onkeypress = "return soloNumeros(event)" } })
+                            @Html.ValidationMessageFor(model => model.par_Puerto, null, new { @class = "text-danger", id = "errorPuerto" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_Servidor, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_Servidor, new { htmlAttributes = new { @class = "form-control", @maxlength = "150", @autocomplete = "off" } })
+                            <p id="emailSer" style="color:red">@Html.ValidationMessageFor(model => model.par_Servidor, "", new { @class = "text-danger" })</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-10">
+                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/app/Parametros.js"></script>
+    <script src="~/Content/template/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="~/Content/template/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="~/Scripts/app/General.js"></script>
+
+
+    <script type="text/javascript">
+        $('#par_TelefonoEmpresa').inputmask('(999) 9999-9999')
+
+        $(document).ready(function () {
+            bsCustomFileInput.init();
+        });
+
+        function onKeyDecimal(e, thix) {
+            var keynum = window.event ? window.event.keyCode : e.which;
+            if (document.getElementById(thix.id).value.indexOf('.') != -1 && keynum == 46)
+                return false;
+            if ((keynum == 8 || keynum == 48 || keynum == 46))
+                return true;
+            if (keynum <= 47 || keynum >= 58) return false;
+            return /\d/.test(String.fromCharCode(keynum));
+        }
+    </script>
+
+</div>

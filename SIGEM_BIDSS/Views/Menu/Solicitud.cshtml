@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "Administración";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using SIGEM_BIDSS.Models
+
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+@if (ViewBag.smserror != "" && ViewBag.smserror != null)
+{
+    <div class="col-md-12" id="mensaje">
+        <div class="alert alert-success" role="alert">
+
+            <button type="button" class="close" data-dissmiss="alert" aria-hidden="true">@Html.ActionLink("x", "Solicitud", new { @class = "btn btn-primary " })</button>
+            <h4><i class="icon fa fa-info-circle"></i>         Alerta</h4>
+            <h2>@ViewBag.smserror</h2>
+
+
+        </div>
+    </div>
+}
+
+<style>
+    .azul {
+        color: #0d71bf;
+    }
+
+    .rojo {
+        color: #d51917;
+    }
+
+    .amarillo {
+        color: #febe01;
+    }
+</style>
+
+<!-- SELECT2 EXAMPLE -->
+<div class="card card-default">
+    <div class="card-header" style="color:dodgerblue">
+        <h3 class="card-title" style="        font-family:Arial">SOLICITUDES</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-3  ">
+                <!-- small box -->
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h4>Anticipo De Viáticos</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-clipboard"></i>
+                    </div>
+                    <a href="@Url.Action("Index","AnticipoViatico")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3  ">
+                <!-- small box -->
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h4>Anticipo De Salario</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-clipboard"></i>
+                    </div>
+                    <a href="@Url.Action("Index","AnticipoSalario")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3  ">
+                <!-- small box -->
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h4> Liquidación Anticipo De Viáticos</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-clipboard"></i>
+                    </div>
+                    <a href="@Url.Action("Index","LiquidacionAnticipoViatico")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3  ">
+                <!-- small box -->
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h4>Reembolso de Gastos</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-clipboard"></i>
+                    </div>
+                    <a href="@Url.Action("Index","SolicitudReembolsoGastos")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3  ">
+                <!-- small box -->
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h4>Vacaciones y Permisos Especiales</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-clipboard"></i>
+                    </div>
+                    <a href="@Url.Action("Index","VacacionesPermisosEspeciales")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3  ">
+                <!-- small box -->
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h4>Acción Personal</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-clipboard"></i>
+                    </div>
+                    <a href="@Url.Action("Index","AccionPersonal")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3  ">
+                <!-- small box -->
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h4> Requisición de Compras</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-clipboard"></i>
+                    </div>
+                    <a href="@Url.Action("Index","RequisionCompra")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+
+    </div>
+</div>
+<!-- /.card -->
+@section scripts{
+
+
+    <script>
+
+        
+        $(function () {
+            //Inicializacion de la funcion
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
+
+            //Mensaje que mostrar segun funcion
+            _Action = $('#vSwal').val();
+            console.log(_Action)
+            if (_Action == "YearLimit") {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Ha alcanzado el limite de solicitudes.'
+                })
+            }
+            else if (_Action == "MonthLimit") {
+                Toast.fire({
+                    type: 'error',
+                    title: 'Ha alcanzado el limite mensual de solicitudes.'
+                })
+            }
+        })
+    </script>
+
+    
+}

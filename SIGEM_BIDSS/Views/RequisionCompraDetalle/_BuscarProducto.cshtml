@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SIGEM_BIDSS.Models.tbProducto>
+
+<table class="table table-responsive-lg table-bordered table-hover" id="tblBusquedaGenerica" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.prod_Descripcion)
+            </th>
+            <td>
+                @Html.DisplayNameFor(model => model.prod_Marca)
+            </td>
+
+            <td>
+                @Html.DisplayNameFor(model => model.prod_Modelo)
+            </td>
+            <th>
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.prod_Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.prod_Marca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.prod_Modelo)
+                </td>
+                <td>
+                    <button class="btn btn-primary btn-xs" value="@item.prod_Id" id="seleccionar" data-dismiss="modal">Seleccionar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

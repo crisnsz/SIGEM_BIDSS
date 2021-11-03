@@ -1,0 +1,110 @@
+﻿@model IEnumerable<SIGEM_BIDSS.Models.tbAnticipoViatico>
+@using SIGEM_BIDSS.Models
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+<link href="~/Content/template/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/template/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-list mr-1"></i>
+            Listado de Solicitudes de Anticipo de Viáticos
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2"></ul>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="dataTable">
+                <thead>
+                    <tr>
+                        <th>
+                            Correlativo
+                        </th>
+                        <th>
+                            Nombre Empleado
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Anvi_GralFechaSolicitud)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Anvi_Cliente)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Anvi_Hospedaje)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Anvi_Comentario)
+                        </th>
+                        <th>
+                            Estado
+                        </th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Anvi_Correlativo)
+                        </td>
+                        <td>
+                            @{string Empleado = item.tbEmpleado.emp_Nombres + " " + item.tbEmpleado.emp_Apellidos;}
+                            @Empleado
+                        </td>
+                        <td>
+                            @{ string Anvi_GralFechaSolicitud = item.Anvi_GralFechaSolicitud.ToString("dd/MM/yyyy");}
+                            @Anvi_GralFechaSolicitud
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Anvi_Cliente)
+                        </td>
+                        <td>
+                            @if (item.Anvi_Hospedaje == true)
+                            {
+                                <p> SI</p>
+                            }
+                            else
+                            {
+                                <p>NO</p>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Anvi_Comentario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbEstado.est_Descripcion)
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Liquidar", "Create", new { id = item.Anvi_Id }, new { @class = "btn btn-danger btn-xs", @style = "width: 57px;" })
+                            @Html.ActionLink("Detalles", "Details", new { id = item.Anvi_Id }, new { @class = "btn btn-default btn-xs", @style = "width: 57px;" })
+
+                        </td>
+                       
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+
+
+    <!-- DataTables -->
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/template/plugins/datatables/dataTables.bootstrap4.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/template/dist/js/adminlte.min.js"></script>
+
+    <script src="~/Scripts/app/DataTables.js"></script>
+
+}

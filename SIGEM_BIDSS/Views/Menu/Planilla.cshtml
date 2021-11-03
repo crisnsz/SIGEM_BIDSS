@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Planilla";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card card-default">
+    <div class="card-header" style="color:dodgerblue">
+        <h3 class="card-title" style="font-family:Arial">PLANILLA</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 ">
+                <!-- small box -->
+                <div class="small-box bg-primary">
+                    <div class="inner">
+
+                        <h4>Deducción Institución Financiera</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-social-buffer"></i>
+                    </div>
+                    <a href="@Url.Action("Index","DeduccionInstitucionFinanciera")" class="small-box-footer">Más Información<i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /.row -->
+</div>
+
+
+
+

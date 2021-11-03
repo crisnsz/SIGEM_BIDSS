@@ -1,0 +1,81 @@
+﻿@model SIGEM_BIDSS.Models.tbSolicitudReembolsoGastosDetalle
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>tbSolicitudReembolsoGastosDetalle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ReemgaDet_FechaGasto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReemgaDet_FechaGasto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReemgaDet_MontoGasto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReemgaDet_MontoGasto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReemgaDet_Concepto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReemgaDet_Concepto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReemgaDet_Archivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReemgaDet_Archivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReemgaDet_TotalGastos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReemgaDet_TotalGastos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbSolicitudReembolsoGastos.Reemga_Correlativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbSolicitudReembolsoGastos.Reemga_Correlativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbTipoViatico.tpv_Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbTipoViatico.tpv_Descripcion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

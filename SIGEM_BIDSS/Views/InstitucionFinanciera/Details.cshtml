@@ -1,0 +1,77 @@
+﻿@model SIGEM_BIDSS.Models.tbInstitucionFinanciera
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-info  mr-1"></i>
+            Detalle Institución Financiera
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="form-horizontal">
+        <div class="card-body">
+            <dl class="dl-horizontal card-columns">
+                <dt>
+                    @Html.DisplayNameFor(model => model.insf_Nombre)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.insf_Nombre)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.insf_Contacto)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.insf_Contacto)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.insf_Telefono)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.insf_Telefono)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.insf_Correo)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.insf_Correo)
+                </dd>
+             
+                <dt>
+                    @Html.DisplayNameFor(model => model.insf_Activo)
+                </dt>
+            
+                <dd>
+                    @if (Model.insf_Activo == true)
+                    {
+                        <p> Activo</p>
+                    }
+                    else
+                    {
+                        <p>Inactivo</p>
+                    }
+                </dd>
+            </dl>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-10">
+            @Html.ActionLink("Editar", "Edit", new { id = Model.insf_Id }, new { @class = "btn btn-primary btn-sm" })
+
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<SIGEM_BIDSS.Models.tbPuesto>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/template/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/template/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+<input type="hidden" id="vSwal" value="@TempData[" swalfunction"]" />
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-list mr-1"></i>
+            Listado Cargo
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink(" Nuevo", "Create", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="dataTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.pto_Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.pto_Descripcion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.are_Id)
+                    </th>
+
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.pto_Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.pto_Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbArea.are_Descripcion)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.pto_Id }, new { @class = "btn btn-primary btn-xs" })
+                            @Html.ActionLink("Detalles", "Details", new { id = item.pto_Id }, new { @class = "btn btn-default btn-xs" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    <!-- Bootstrap 4 -->
+    <script src="~/Content/template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/template/plugins/datatables/dataTables.bootstrap4.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/template/dist/js/adminlte.min.js"></script>
+    <script src="~/Scripts/app/General.js"></script>
+    <script src="~/Scripts/app/DataTables.js"></script>
+
+}

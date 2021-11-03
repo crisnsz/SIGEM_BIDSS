@@ -1,0 +1,279 @@
+﻿@model IEnumerable<SIGEM_BIDSS.Models.tbEmpleado>
+
+@using SIGEM_BIDSS.Models
+
+
+
+
+@{
+    SIGEM_BIDSS.Models.tbEmpleado tbEmpleado = new SIGEM_BIDSS.Models.tbEmpleado();
+
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<link href="~/Content/template/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/template/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-list mr-1"></i>
+            Listado De Empleados
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Nuevo", "Create", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="dataTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.emp_Nombres)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.emp_Apellidos)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.emp_Identificacion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tbEstado.est_Descripcion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.emp_Telefono)
+                    </th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr data-id="@item.emp_Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.emp_Nombres)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.emp_Apellidos)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.emp_Identificacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbEstado.est_Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.emp_Telefono)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.emp_Id }, new { @class = "btn btn-primary btn-xs " })
+                            @Html.ActionLink("Detalles", "Details", new { id = item.emp_Id }, new { @class = "btn btn-default btn-xs" })
+
+                            @if (item.est_Id == GeneralFunctions.empleadoactivo)
+                            {
+                                <input type="button" id="RazonInactivacion" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#ModalRazonInactivacion" value="Inactivar" />
+                                <input type="hidden" id="_emp_Id" value="@item.emp_Id" />
+                            }
+                            else if (item.est_Id == GeneralFunctions.empleadoinactivo)
+                            {
+                                @Html.ActionLink("Activar", "Activate", new { id = item.emp_Id }, new { @class = "btn btn-success btn-xs", @Style = "width:55px" })
+                            }
+                            @*@Html.ActionLink("Index","Sueldo"), new { id = item.emp_Id }, new { @class = "btn btn-success btn-xs", @Style = "width:55px" })*@
+
+
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ModalRazonInactivacion" data-backdrop="static" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Razon de Inactivación</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <input type="hidden" id="Em_Id" />
+            <div class="modal-body">
+                @Html.LabelFor(model => tbEmpleado.emp_RazonInactivacion, "Razon de Inactivación", new { @class = "control-label col-md-8 required" })
+                <div class="form-group">
+                    @Html.TextAreaFor(model => tbEmpleado.emp_RazonInactivacion, new { @class = "form-control normalize", @onkeypress = "return soloLetras(event)", @onkeyup = "this.value=this.value.toUpperCase()",@rows = "5", @cols = "12"@*, onkeypress = "return check(event)"*@})
+                    <p style="color:red">
+                        @Html.ValidationMessageFor(model => tbEmpleado.emp_RazonInactivacion)
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit" id="btnRaInac">Aceptar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <!-- Bootstrap 4 -->
+    <script src="~/Content/template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/template/plugins/datatables/dataTables.bootstrap4.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/template/dist/js/adminlte.min.js"></script>
+    <script src="~/Scripts/app/DataTables.js"></script>
+    <script src="~/Scripts/app/ValidacionesGenerales.js"></script>
+    <script src="~/Scripts/app/General_PCAE.js"></script>
+    <script type="text/javascript">
+
+
+        const contador = 1;
+
+        function GetValInac() {
+            var Empleado = {
+                emp_Id: $("#Em_Id").val(),
+                emp_RazonInactivacion: $('#tbEmpleado_emp_RazonInactivacion').val(),
+                emp_UsuarioCrea: contador
+            };
+            return Empleado;
+        }
+
+        $(document).on("click", "#dataTable tbody tr td input#RazonInactivacion", function () {
+            _emp_Id = $(this).closest('tr').data('id');
+            $("#Em_Id").val(_emp_Id);
+            console.log(_emp_Id)
+        })
+        //$('#').click(function () {
+        ///INHABILITAR EMPLEADO
+        $('#btnRaInac').click(function () {
+            var emp_RazonInactivacion = $('#tbEmpleado_emp_RazonInactivacion').val();
+            if (emp_RazonInactivacion == '' || emp_RazonInactivacion == '*****') {
+                $('#MessageError').text('');
+                $('#CodigoError').text('');
+                $('#NombreError').text('');
+                $('#tbEmpleado_emp_RazonInactivacion').after('<ul id="MessageError" class="validation-summary-errors text-danger">Campo Razon Inactivación Requerido</ul>');
+            }
+            else {
+                var tbEmpleado = GetValInac();
+                $.ajax({
+                    url: "/Empleado/InactivarEmpleado",
+                    method: "POST",
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ tbEmpleado: tbEmpleado }),
+                })
+                    .done(function (data) {
+
+
+                        $("Em_Id").val("");
+                        //window.location.href = "/Empleado/Index"
+                        location.reload();
+                    });
+
+            }
+        });
+
+        $('#emp_RazonInactivacion').change(function (e) {
+            var Contacto = $.trim(this.value);
+            if (Contacto != '') {
+                $('#Contacto').text('');
+                $('#errorContacto').text('');
+            }
+        });
+
+
+        //Funcion no aceptar espacios en el textbox
+        document.addEventListener("input", function () {
+            $("textarea", 'body').each(function (e) {
+                var _id = $(this).attr("id");
+                _value = document.getElementById(_id).value;
+                _value = _value.trimStart();
+
+            });
+            $(".normalize", 'body').each(function (e) {
+                if (!/^[ a-z0-9áéíóúüñ]*$/i.test(this.value)) {
+                    this.value = this.value.replace(/[^ .,a-z0-9áéíóúüñ]+/ig, "");
+                }
+            });
+
+
+        });
+
+
+
+        $(function () {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            _isBool = $('#vSwal').val();
+            console.log(_isBool)
+            if (_isBool == "true") {
+                console.log("Verdadero")
+
+                Toast.fire({
+                    type: 'success',
+                    title: 'Se ha guardado con Exito.'
+                })
+            }
+            else {
+                console.log("Falso")
+            }
+        });
+
+    </script>
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

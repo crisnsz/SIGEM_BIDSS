@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<link href="~/Content/template/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/template/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-list mr-1"></i>
+            Código QR
+        </h3>
+        
+    </div>
+    <div class="card-body">
+        <form id="form1" runat="server" action="~/CodeQR" method="post">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label>Ingrese Algo</label>
+                            <div class="input-group">
+                                <input type="text" name="txtQRCode" class="form-control" value="@ViewBag.txtQRCode" />
+                                <div class="input-group-prepend">
+                                    <button type="submit">Generar QR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (ViewBag.imageBytes != null)
+                {
+                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ViewBag.imageBytes))" />
+                }
+
+            </div>
+        </form>
+    </div>
+</div>

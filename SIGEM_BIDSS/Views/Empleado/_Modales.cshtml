@@ -1,0 +1,27 @@
+﻿@model SIGEM_BIDSS.Models.tbEmpleado
+
+<div class="modal fade" id="ModalRazonInactivacion" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Razon de Inactivación</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.LabelFor(model => model.emp_RazonInactivacion, "Razon de Inactivación", new { @class = "control-label col-md-8 required" })
+                <div class="form-group">
+                    @Html.TextAreaFor(model => model.emp_RazonInactivacion, new { @class = "form-control", @rows = "5", @cols = "12", onkeypress = "return check(event)" })
+                    <p style="color:red">
+                        @Html.ValidationMessageFor(model => model.emp_RazonInactivacion)
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit" id="btnRaInac">Aceptar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

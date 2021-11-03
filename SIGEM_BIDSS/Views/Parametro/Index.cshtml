@@ -1,0 +1,88 @@
+﻿@model IEnumerable<SIGEM_BIDSS.Models.tbParametro>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.par_NombreEmpresa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.par_TelefonoEmpresa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.par_CorreoEmpresa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.par_PorcentajeAdelantoSalario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.par_FrecuenciaAdelantoSalario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.par_CorreoEmisor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.par_Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.par_Servidor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.par_Puerto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.par_PathLogo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.par_NombreEmpresa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.par_TelefonoEmpresa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.par_CorreoEmpresa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.par_PorcentajeAdelantoSalario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.par_FrecuenciaAdelantoSalario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.par_CorreoEmisor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.par_Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.par_Servidor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.par_Puerto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.par_PathLogo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.par_Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.par_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.par_Id })
+        </td>
+    </tr>
+}
+
+</table>

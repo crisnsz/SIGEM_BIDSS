@@ -1,0 +1,67 @@
+﻿@model SIGEM_BIDSS.Models.tbSolicitudReembolsoGastosDetalle
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbSolicitudReembolsoGastosDetalle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ReemgaDet_FechaGasto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReemgaDet_FechaGasto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReemgaDet_MontoGasto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReemgaDet_MontoGasto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReemgaDet_Concepto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReemgaDet_Concepto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReemgaDet_Archivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReemgaDet_Archivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbSolicitudReembolsoGastos.Reemga_Correlativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbSolicitudReembolsoGastos.Reemga_Correlativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbTipoViatico.tpv_Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbTipoViatico.tpv_Descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ReemgaDet_Id }) 
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,143 @@
+﻿@model SIGEM_BIDSS.Models.tbAnticipoSalario
+@using SIGEM_BIDSS.Models;
+
+@{
+    ViewBag.Title = "Registrar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/template/plugins/datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-upload mr-1"></i>
+            Solicitud de Anticipo de Salario
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, FormMethod.Post, new { id = "frmAnticipoSalario" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="card-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                @Html.HiddenFor(model => model.Ansal_RazonRechazo, new { Value = GeneralFunctions.stringDefault })
+                @Html.HiddenFor(model => model.Sueldo)
+                @Html.HiddenFor(model => model.Porcentaje)
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.Ansal_JefeInmediato, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("Ansal_JefeInmediato", null, "Seleccione Jefe Inmediato", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Ansal_JefeInmediato, "", new { @class = "text-danger", id = "spanJefeInmediato" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.Ansal_GralFechaSolicitud, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Ansal_GralFechaSolicitud, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                            @Html.ValidationMessageFor(model => model.Ansal_GralFechaSolicitud, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.Cantidad, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-10">
+                            <input id="number" type="hidden"/>
+                            @Html.EditorFor(model => model.Cantidad, new { htmlAttributes = new { @class = "form-control normalize soloNumeros",@OnKeyPress="return soloNumerosCantidad(event)", @autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.Cantidad, "", new { @class = "text-danger", id = "spanCantidad" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.tpsal_id, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("tpsal_id", null, "Seleccione un tipo de Salario", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.tpsal_id, "", new { @class = "text-danger", id = "spantpsal_id" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.Ansal_Justificacion, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Ansal_Justificacion, new { htmlAttributes = new { @class = "form-control normalize nospace" } })
+                            @Html.ValidationMessageFor(model => model.Ansal_Justificacion, "", new { @class = "text-danger", id = "spanJustificacion" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.Ansal_Comentario, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.Ansal_Comentario, new { @class = "form-control normalize nospace" })
+                            @Html.ValidationMessageFor(model => model.Ansal_Comentario, "", new { @class = "text-danger", id = "spanComentario" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input id="openModal" type="button" class="btn btn-primary" value="Guardar" />
+                        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<div class="modal fade" id="ModalAuth" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="d-flex justify-content-center align-items-center" id="spinnerForm">
+                <div id="spinnerDiv" class="text-center" hidden>
+                    <div class="spinner-border text-light" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="text-light">
+                        <label>Guardando, estado porfavor espere</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Mensaje de Autorizacion</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 class="control-label col-md-8 "></h5>
+                <div class="form-group">
+                    <p style="color:red" id="">
+                        ¿Autoriza  a BI- DSS Technology para que debite de su sueldo el anticipo solicitado?
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" id="frmsubmit">Autorizar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/Content/template/plugins/datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Content/template/plugins/datepicker/locales/bootstrap-datepicker.es.min.js"></script>
+    <script src="~/Scripts/app/ValidacionesGenerales.js"></script>
+    <script src="~/Scripts/app/General_PCAE.js"></script>
+    <script src="~/Scripts/app/Solicitud/AnticipoSalario/AnticipoSalario.js"></script>
+
+}

@@ -1,0 +1,282 @@
+﻿
+@{
+    ViewBag.Title = "General";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<input type="hidden" id="vSwal" value="@TempData["getswalfunction"]" />
+<div class="card card-default">
+    <div class="card-header" style="color:dodgerblue">
+        <h3 class="card-title" style="        font-family:Arial">CATÁLOGOS </h2>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fa fa-minus"></i></button>
+
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-3 ">
+                <div class="small-box bg-primary">
+                    <div class="inner">
+
+                        <h2>Tipo Sangre </h2>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-create"></i>
+                    </div>
+                    <a href="@Url.Action("Index","TipoSangre")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="col-lg-3  ">
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h2>Área </h2>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-desktop"></i>
+                    </div>
+                    <a href="@Url.Action("Index","Area")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3  ">
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h2>Historial Sueldo </h2>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-list"></i>
+                    </div>
+                    <a href="@Url.Action("Index","SueldoHistorico")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 ">
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h2>Unidad Medida</h2>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-ios-speedometer-outline"></i>
+                    </div>
+                    <a href="@Url.Action("Index","UnidadMedida")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 ">
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h2>Producto</h2>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-shopping-basket"></i>
+                    </div>
+                    <a href="@Url.Action("Index","Producto")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 ">
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h2>Categoria</h2>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-list"></i>
+                    </div>
+                    <a href="@Url.Action("Index","ProductoCategoria")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-3">
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h2>Tipo Tranporte </h2>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-car"></i>
+                    </div>
+                    <a href="@Url.Action("Index","TipoTransporte")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="col-lg-3">
+                <div class="color">
+                    <div class="small-box bg-primary">
+                        <div class="inner">
+                            <h2>Estado </h2>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-android-bulb"></i>
+                        </div>
+                        <a href="@Url.Action("Index","Estado")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="col-lg-3 ">
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h2>Cargos </h2>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-group"></i>
+                    </div>
+                    <a href="@Url.Action("Index","Cargos")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3  ">
+
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h2>Moneda </h2>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-money"></i>
+                    </div>
+                    <a href="@Url.Action("Index","Moneda")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h2>División Politica </h2>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-globe"></i>
+                    </div>
+                    <a href="@Url.Action("Index","Departamento")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-3">
+                <div class="color">
+                    <div class="small-box bg-primary">
+                        <div class="inner">
+                            <h2>Tipo Movimiento </h2>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-archive"></i>
+                        </div>
+                        <a href="@Url.Action("Index","TipoMovimiento")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 ">
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h2>Tipo Salario </h2>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-dollar"></i>
+                    </div>
+                    <a href="@Url.Action("Index","TipoSalario")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3  ">
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h2>Tipo Viático </h2>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-cart"></i>
+                    </div>
+                    <a href="@Url.Action("Index","TipoViatico")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h2>Tipo Permiso </h2>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-home"></i>
+                    </div>
+                    <a href="@Url.Action("Index","tbTipoPermiso")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3">
+                <div class="color">
+                    <div class="small-box bg-primary">
+                        <div class="inner">
+                            <h2>Institución Financiera </h2>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-android-contact"></i>
+                        </div>
+                        <a href="@Url.Action("Index","InstitucionFinanciera")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-lg-3">
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h2>Actividad Ecónomica</h2>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-android-funnel"></i>
+                    </div>
+                    <a href="@Url.Action("Index","ActividadEconomica")" class="small-box-footer">Más Información <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.card-body -->
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

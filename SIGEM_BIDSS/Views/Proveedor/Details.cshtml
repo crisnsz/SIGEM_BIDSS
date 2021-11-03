@@ -1,0 +1,100 @@
+﻿@model SIGEM_BIDSS.Models.tbProveedor
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-info  mr-1"></i>
+            Detalle Proveedor
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="form-horizontal">
+        <div class="card-body">
+            <dl class="dl-horizontal card-columns">
+                <dt>
+                    @Html.DisplayNameFor(model => model.prov_Nombre)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.prov_Nombre)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.prov_NombreContacto)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.prov_NombreContacto)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.prov_RTN)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.prov_RTN)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.prov_Email)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.prov_Email)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.acte_Id)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbActividadEconomica.acte_Descripcion)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.prov_Telefono)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.prov_Telefono)
+                </dd>
+                <dt>
+                    Departamento
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbMunicipio.tbDepartamento.dep_Nombre)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.mun_codigo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbMunicipio.mun_nombre)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.prov_Direccion)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.prov_Direccion)
+                </dd>
+
+            </dl>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-10">
+            @Html.ActionLink("Editar", "Edit", new { id = Model.prov_Id }, new { @class = "btn btn-primary btn-sm" })
+
+        </div>
+    </div>
+</div>
+
+
+

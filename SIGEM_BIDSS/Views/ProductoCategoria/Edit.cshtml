@@ -1,0 +1,222 @@
+﻿@model SIGEM_BIDSS.Models.tbProductoCategoria
+@using SIGEM_BIDSS.Models
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    tbProductoSubcategoria subcategoria = new tbProductoSubcategoria();
+}
+
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+
+<link href="~/Content/template/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/template/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-refresh  mr-1"></i>
+            Editar Categoría
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    @using (Html.BeginForm("Edit", "ProductoCategoria", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmEditCategoria" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="card-body">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.pcat_Id)
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.pcat_Descripcion, new { @class = "control-label" })
+                            @Html.EditorFor(model => model.pcat_Descripcion, new { htmlAttributes = new { @class = "form-control", @maxlength = "100", @autocomplete = "off", @onkeypress = "return soloLetras(event)", @style = "text-transform:uppercase;", @onkeyup = "noespaciosincio(this)" } })
+
+                            @Html.ValidationMessageFor(model => model.pcat_Descripcion, "", new { @class = "text-danger", id = "categoria" })
+
+                        </div>
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.pcat_EsActivo, "Estado", new { @class = "control-label col-md-4" })
+
+                            @if (Model.pcat_EsActivo == true)
+                            {
+
+                                <input type="text" placeholder="ACTIVA" name="Activa" readonly class="form-control">
+                            }
+                            else
+                            {
+                                <input type="text" placeholder="INACTIVA" name="Inactiva" readonly class="form-control">
+                            }
+
+                        </div>
+
+                    </div>
+                    @{
+
+                        if (Model.pcat_EsActivo == true)
+                        {
+
+                            <div class="form-group col-md-5">
+                                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#Crear">Registrar Detalle</button>
+                                <div class="ibox-content collapse" id="Crear">
+                                    @Html.Partial("_CreateSubCategoria", new tbProductoSubcategoria())
+                                </div>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="form-group col-md-4">
+                                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#Crear" disabled>Registrar Detalle</button>
+                                <div class="ibox-content collapse" id="Crear">
+                                    @Html.Partial("_CreateSubCategoria", new tbProductoSubcategoria())
+                                </div>
+                            </div>
+                        }
+                    }
+                </form>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.Partial("_ListSubCategoria", Model.tbProductoSubcategoria, new ViewDataDictionary { { "pcat_Id", Model.pcat_Id } })
+                </div>
+                <br />
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-10 text-center">
+                    @{if (Model.pcat_EsActivo == true)
+                        {
+                            <input type="submit" value="Guardar" class="btn btn-primary" />
+                            <input type="button" class="btn btn-danger" data-toggle="modal" data-target="#ModalEstado" value="Inactivar" />
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ModalEstado_@Model.pcat_Id">
+                                Eliminar
+                            </button>
+                        }
+                        else
+                        {
+                            <input type="submit" value="Guardar" class="btn btn-primary" disabled />
+                            @Html.ActionLink("Activar", "ActivarCateValidacion", new { id = Model.pcat_Id }, new { @class = "btn btn-primary " })
+                        }
+
+                    }
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-white" })
+
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+        @*modales*@
+        <div class="modal fade" id="ModalEstado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Inactivar Categoría</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Está seguro que quiere Inactivar esta Categoría?
+                    </div>
+                    <div class="modal-footer">
+                        @Html.ActionLink("Sí", "InactivarCateValidacion", new { id = Model.pcat_Id }, new { @class = "btn btn-danger" })
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="ModalEstado_@Model.pcat_Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Eliminar Categorìa</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Está seguro que quiere Eliminar esta Categoría?
+                    </div>
+                    <div class="modal-footer">
+                        @Html.ActionLink("Sí", "EliminarProductoCategoria", new { id = Model.pcat_Id }, new { @class = "btn btn-danger" })
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @*modales*@
+    <div class="modal fade" id="ModalEstado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Inactivar Categoría</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro que quiere Inactivar esta Categoría?
+                </div>
+                <div class="modal-footer">
+                    @Html.ActionLink("Sí", "InactivarCateValidacion", new { id = Model.pcat_Id }, new { @class = "btn btn-danger" })
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ModalEstado_@Model.pcat_Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Categorìa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro que quiere Eliminar esta Categoría?
+                </div>
+                <div class="modal-footer">
+                    @Html.ActionLink("Sí", "EliminarProductoCategoria", new { id = Model.pcat_Id }, new { @class = "btn btn-danger" })
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+        
+        <script src="~/Content/template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- DataTables -->
+        <script src="~/Content/template/plugins/datatables/jquery.dataTables.js"></script>
+        <script src="~/Content/template/plugins/datatables/dataTables.bootstrap4.js"></script>
+        <!-- AdminLTE App -->
+        <script src="~/Content/template/dist/js/adminlte.min.js"></script>
+        <script src="~/Scripts/app/General.js"></script>
+       
+
+        <script src="~/Scripts/app/Categoria.js"></script>
+    }
+</div>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<SIGEM_BIDSS.Models.tbMunicipio>
+
+
+@using SIGEM_BIDSS.Models;
+
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-info  mr-1"></i>
+            Detalle Municipio
+        </h3>
+
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover"  id="dataTables">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.mun_codigo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.mun_nombre)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.mun_codigo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.mun_nombre)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

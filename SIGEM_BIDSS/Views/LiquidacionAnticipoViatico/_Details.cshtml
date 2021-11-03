@@ -1,0 +1,50 @@
+﻿@model IEnumerable<SIGEM_BIDSS.Models.tbLiquidacionAnticipoViaticoDetalle>
+
+@using SIGEM_BIDSS.Models;
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-info  mr-1"></i>
+            Detalle Liquidación Anticipo Viático
+        </h3>
+
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="dataTables">
+            <thead>
+                <tr>
+                    <td>Fecha Gasto</td>
+                    <td>Tipo Viático</td>
+                    <td>Monto Gasto</td>
+                    <td>Concepto</td>
+                    <td>Archivo</td>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lianvide_FechaGasto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tbTipoViatico.tpv_Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lianvide_MontoGasto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lianvide_Concepto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lianvide_Archivo)
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    

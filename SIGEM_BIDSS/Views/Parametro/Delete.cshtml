@@ -1,0 +1,84 @@
+﻿@model SIGEM_BIDSS.Models.tbParametro
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>tbParametro</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.par_NombreEmpresa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.par_NombreEmpresa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.par_TelefonoEmpresa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.par_TelefonoEmpresa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.par_CorreoEmpresa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.par_CorreoEmpresa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.par_CorreoEmisor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.par_CorreoEmisor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.par_Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.par_Password)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.par_Servidor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.par_Puerto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.par_Puerto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.par_PathLogo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.par_PathLogo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

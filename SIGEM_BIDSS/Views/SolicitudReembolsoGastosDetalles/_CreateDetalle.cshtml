@@ -1,0 +1,85 @@
+﻿
+@model IEnumerable<SIGEM_BIDSS.Models.tbSolicitudReembolsoGastosDetalle>
+
+
+<table class="table table-bordered table-hover" id="dataTable">
+    <thead>
+        <tr>
+            <th>
+                Fecha Gasto
+            </th>
+            <th>
+                Tipo Gasto
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ReemgaDet_MontoGasto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReemgaDet_Concepto)
+            </th>
+
+            <th>
+               Archivo
+            </th>
+
+
+            <th>
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReemgaDet_FechaGasto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbTipoViatico.tpv_Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReemgaDet_MontoGasto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReemgaDet_Concepto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReemgaDet_Archivo)
+                </td>
+                <td></td>
+
+                <td></td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+
+            <th>
+                Total Gastos
+            </th>
+
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+
+        </tr>
+    </tfoot>
+
+</table>
+

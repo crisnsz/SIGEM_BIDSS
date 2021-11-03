@@ -1,0 +1,174 @@
+﻿@model SIGEM_BIDSS.Models.tbEmpleado
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-info  mr-1"></i>
+            Detalle Empleado
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="form-horizontal">
+        <div class="card-body">
+            <dl class="dl-horizontal card-columns">
+                <dt>
+                    @Html.DisplayNameFor(model => model.emp_PathImage)
+                </dt>
+                <dd>
+                    @{
+                        if (Model.emp_PathImage != null && Model.emp_PathImage != "")
+                        {
+                            <img src="@Url.Content(Model.emp_PathImage)" alt="Fotografía" class="img-rounded" width="200" height="200">
+                        }
+                        else
+                        {
+                            <img src="~/Content/img/NoImage.png" alt="Sin Fotografía" class="img-rounded" width="200" height="200">
+                        }
+                    }
+                <dt>
+                    @Html.DisplayNameFor(model => model.emp_Nombres)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.emp_Nombres)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.emp_Apellidos)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.emp_Apellidos)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.emp_Sexo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.emp_Sexo)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.emp_FechaNacimiento)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.emp_FechaNacimiento)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.emp_Identificacion)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.emp_Identificacion)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.emp_Telefono)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.emp_Telefono)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.emp_CorreoElectronico)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.emp_CorreoElectronico)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.emp_FechaIngreso)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.emp_FechaIngreso)
+
+                </dd>
+                <dt>
+                   ¿Es jefe?
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.emp_EsJefe)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.emp_Direccion)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.emp_Direccion)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.tbMunicipio.dep_codigo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbMunicipio.tbDepartamento.dep_Nombre)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.tbMunicipio.mun_codigo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbMunicipio.mun_nombre)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.emp_RazonInactivacion)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.emp_RazonInactivacion)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.est_Id)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbEstado.est_Descripcion)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.are_Id)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbPuesto.tbArea.are_Descripcion)
+                </dd>
+                <dt>
+                    Puesto
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbPuesto.pto_Descripcion)
+                </dd>
+                <br />
+            </dl>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-10">
+            @Html.ActionLink("Editar", "Edit", new { id = Model.emp_Id }, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/app/General.js"></script>
+
+
+              
+
+
+
+
+

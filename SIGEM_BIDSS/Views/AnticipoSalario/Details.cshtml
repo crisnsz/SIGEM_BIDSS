@@ -1,0 +1,155 @@
+﻿@model SIGEM_BIDSS.Models.tbAnticipoSalario
+@using SIGEM_BIDSS.Models
+@using System.Globalization;
+
+@{
+    ViewBag.Title = "Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-upload mr-1"></i>
+            Solicitud Anticipo de Salario
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="form-horizontal">
+        <div class="card-body">
+            @Html.HiddenFor(model => model.Ansal_Id)
+            <dl class="form-row form-group">
+                <div class="form-group col-md-3">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ansal_Correlativo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Ansal_Correlativo)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.emp_Id)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.tbEmpleado.emp_Nombres) @Html.DisplayFor(model => model.tbEmpleado.emp_Apellidos)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ansal_JefeInmediato)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.tbEmpleado1.emp_Nombres) @Html.DisplayFor(model => model.tbEmpleado1.emp_Apellidos)
+                    </dd>
+
+                </div>
+                <div class="form-group col-md-3">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ansal_GralFechaSolicitud)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Ansal_GralFechaSolicitud)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.tpsal_id)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.tbTipoSalario.tpsal_Descripcion)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ansal_MontoSolicitado)
+                    </dt>
+                    <dd>
+                        @{
+                            string Money = "";
+                            string myDecimal = Model.Ansal_MontoSolicitado.ToString();
+                            NumberFormatInfo nfi = new CultureInfo("", true).NumberFormat;
+                            nfi.CurrencyDecimalDigits = 2;
+                            nfi.NumberDecimalDigits = 3;
+                            nfi.CurrencySymbol = "";
+                            if (!string.IsNullOrEmpty(myDecimal))
+                            {
+                                decimal dDecimal = decimal.Parse(myDecimal);
+                                Money = dDecimal.ToString("c", nfi);
+                            }
+                        }
+                        @Money
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ansal_Justificacion)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Ansal_Justificacion)
+                    </dd>
+                    @if (Model.Ansal_Comentario != GeneralFunctions.stringDefault)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Ansal_Comentario)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Ansal_Comentario)
+                        </dd>
+                    }
+
+                </div>
+                <div class="form-group col-md-3">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.est_Id)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.tbEstado.est_Descripcion)
+                    </dd>
+
+                    @if (Model.est_Id == GeneralFunctions.Rechazada)
+                    {
+
+
+                        if (Model.Ansal_RazonRechazo != GeneralFunctions.stringDefault)
+                        {
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Ansal_RazonRechazo)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Ansal_RazonRechazo)
+                            </dd>
+                        }
+                    }
+
+                </div>
+            </dl>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @if (Model.est_Id == GeneralFunctions.Revisada)
+                    {
+                        <input type="button" id="Approve" class="btn btn-primary" data-toggle="modal" data-target="#ModalApprove" value="Aprobar" />
+                        <input type="button" id="Reject" class="btn btn-danger" data-toggle="modal" data-target="#ModalReject" value="Rechazar" />
+                    }
+                    else
+                    {
+                        <input disabled type="button" id="Approve" class="btn btn-primary" data-toggle="modal" data-target="#ModalApprove" value="Aprobar" />
+                        <input disabled type="button" id="Reject" class="btn btn-danger" data-toggle="modal" data-target="#ModalReject" value="Rechazar" />
+                    }
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@Html.Partial("_Modales")
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/app/General_Details.js"></script>
+    <script src="~/Scripts/app/Solicitud/AnticipoSalario/Modals.js"></script>
+}

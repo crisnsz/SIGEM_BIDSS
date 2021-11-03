@@ -1,0 +1,163 @@
+﻿@model SIGEM_BIDSS.Models.tbRequisionCompraDetalle
+
+@{
+    ViewBag.Title = "Registar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Select2 -->
+<link rel="stylesheet" href="~/Content/template/plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="~/Content/template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<!-- Theme style -->
+<link href="~/Content/template/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/template/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+@Styles.Render("~/Content/adminlte")
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-upload mr-1"></i>
+            Solicitud de Requisicion
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", "RequisionCompra", new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, FormMethod.Post, new { id = "RequisicionDetalle" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="card-body">
+                @Html.HiddenFor(model => model.Reqco_Id)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+
+                        @Html.LabelFor(model => model.prod_Id, null, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-10">
+                            <div class="input-group date" id="prod_Search" data-target-input="nearest">
+                                <input type="text" id="prod_Text" class="form-control datetimepicker-input" data-target="#prod_Search" readonly="readonly">
+                                <input type="hidden" id="prod_Id">
+                                <div class="input-group-append" data-target="#prod_Search" data-toggle="datetimepicker">
+                                    <button id="SelectProduct" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalAgregarProducto"><span class="fa fa-search"></span></button>
+                                </div>
+                            </div>
+                            <div id="Validationprod_TextCreate">
+                                @Html.ValidationMessageFor(model => model.prod_Id, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group  col-md-6">
+                        @Html.LabelFor(model => model.Cantidad, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-10">
+                            <input id="number" type="hidden" />
+                            @Html.EditorFor(model => model.Cantidad, new { htmlAttributes = new { @class = "form-control", @OnKeyPress = "return soloNumeros(event)" } })
+                            <div id="ValidationCantidadCreate">
+                                @Html.ValidationMessageFor(model => model.Cantidad, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.Reqde_Justificacion, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Reqde_Justificacion, new { htmlAttributes = new { @class = "form-control nospace" } })
+                            <div id="ValidationJustificacionCreate">
+                                @Html.ValidationMessageFor(model => model.Reqde_Justificacion, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="p-4 col-md-10">
+                            <input type="button" id="addTable" value="Agregar" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row col-lg-12">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-hover table-responsive-lg" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.prod_Id)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Cantidad)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Reqde_Justificacion)
+                                    </th>
+                                    <th>
+                                        Acciones
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="p-4 col-md-10">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Guardar" class="btn btn-primary" />
+                            @Html.ActionLink("Cancelar", "Index", "RequisionCompra", new { @class = "btn btn-default" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    }
+</div>
+
+
+@*PARA AGREGAR NUEVO PRODUCTO*@
+<div class="modal fade" id="ModalAgregarProducto">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Buscar Productos</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body justify-content-center">
+                <div class="card card-primary card-outline">
+                    <div class="card-header d-flex p-0 ui-sortable-handle">
+                      
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            @Html.Partial("_BuscarProducto", (List<SIGEM_BIDSS.Models.tbProducto>)ViewBag.Producto)
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</div>
+
+@section Scripts {
+    <script src="~/Content/template/plugins/datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Content/template/plugins/datepicker/locales/bootstrap-datepicker.es.min.js"></script>
+    <script src="~/Content/template/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/template/plugins/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Select2 -->
+    <script src="~/Content/template/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Scripts/app/DataTables.js"></script>
+
+    <script src="~/Scripts/app/Solicitud/RequisicionCompra/RequisicionDetalle.js"></script>
+
+}

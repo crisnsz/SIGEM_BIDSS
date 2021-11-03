@@ -1,0 +1,60 @@
+﻿@model SIGEM_BIDSS.Models.tbProductoSubcategoria
+
+<div class="form-horizontal">
+    <div class="card-body">
+        <from>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.pscat_Descripcion,new { @class = "control-label col-md-4" })
+                    <div class="col-md-12">
+                        <input type="text" id="pscat_Descripcion" onkeypress="return soloLetras(event)" placeholder="" class="form-control inputFormu" maxlength="150"  minlength="5" autocomplete="off" style="text-transform:uppercase;"  onkeyup="validar()" />
+                        <div id="DescripcionError">
+                            <p style="color:red">
+                                @Html.ValidationMessageFor(model => model.pscat_Descripcion)
+                            </p>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-primary" type="button" id="CrearSubCategoria" disabled>Añadir</button>
+                        </div>
+                    </div>
+
+                    <br />
+
+
+                </div>
+            </div>
+        </from>
+        <table id="TablaSub" class="table table-bordered table-hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Subcategoría</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+
+
+    function validar() {
+        var validado = true;
+        elementos = document.getElementsByClassName("inputFormu");
+        for (i = 0; i < elementos.length; i++) {
+            if (elementos[i].value == "" || elementos[i].value == null) {
+                validado = false
+            }
+        }
+        if (validado) {
+            document.getElementById("CrearSubCategoria").disabled = false;
+
+        } else {
+            document.getElementById("CrearSubCategoria").disabled = true;
+            
+        }
+    }
+
+</script>

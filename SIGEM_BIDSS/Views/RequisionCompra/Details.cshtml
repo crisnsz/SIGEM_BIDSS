@@ -1,0 +1,142 @@
+﻿@model SIGEM_BIDSS.Models.tbRequisionCompra
+@using SIGEM_BIDSS.Models
+
+@{
+    ViewBag.Title = "Detalle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+<link href="~/Content/template/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+
+
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-upload mr-1"></i>
+            Solicitud de Rquisicion de Compra
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="form-horizontal">
+        <div class="card-body">
+            @Html.HiddenFor(model => model.Reqco_Id)
+            <dl class="form-row">
+                @Html.HiddenFor(model => model.Reqco_Id)
+                <div class="form-group col-md-3">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Reqco_Correlativo)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Reqco_Correlativo)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.emp_Id)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.tbEmpleado.emp_Nombres)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Reqco_GralFechaSolicitud)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Reqco_GralFechaSolicitud)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.are_Id)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.tbArea.are_Descripcion)
+                    </dd>
+
+
+                </div>
+                <div class="form-group col-md-3">
+                    @if (Model.Reqco_Comentario != GeneralFunctions.stringDefault)
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Reqco_Comentario)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Reqco_Comentario)
+                        </dd>
+                    }
+                    <dt>
+                        @Html.DisplayNameFor(model => model.est_Id)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.tbEstado.est_Descripcion)
+                    </dd>
+
+                    @if (Model.est_Id == GeneralFunctions.Rechazada)
+                    {
+                        if (Model.Reqco_RazonRechazo != GeneralFunctions.stringDefault)
+                        {
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Reqco_RazonRechazo)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Reqco_RazonRechazo)
+                            </dd>
+                        }
+                    }
+
+                </div>
+            </dl>
+
+            <div class="card card-primary card-outline">
+                <div class="card-body">
+                    @Html.Partial("_RequisicionDetalle", (List<SIGEM_BIDSS.Models.tbRequisionCompraDetalle>)ViewBag.RequisicionDetalle)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @if (Model.est_Id == GeneralFunctions.Revisada)
+                    {
+                        <input type="button" id="Approve" class="btn btn-primary" data-toggle="modal" data-target="#ModalApprove" value="AprobarJefe" />
+                        <input type="button" id="ApproveAdmin" class="btn btn-primary" data-toggle="modal" data-target="#ModalApproveAdmin" value="AprobarAdmin" />
+                        <input type="button" id="Reject" class="btn btn-danger" data-toggle="modal" data-target="#ModalReject" value="Rechazar" />
+                    }
+                    else
+                    {
+                        <input disabled type="button" id="Approve" class="btn btn-primary" data-toggle="modal" data-target="#ModalApprove" value="Aprobar" />
+                        <input disabled type="button" id="Reject" class="btn btn-danger" data-toggle="modal" data-target="#ModalReject" value="Rechazar" />
+                    }
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+@Html.Partial("_Modales")
+
+
+
+@section Scripts {
+
+    <!-- DataTables -->
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/template/plugins/datatables/dataTables.bootstrap4.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/template/dist/js/adminlte.min.js"></script>
+    <script src="~/Scripts/app/DataTables.js"></script>
+    <script src="~/Scripts/app/General_Details.js"></script>
+    <script src="~/Scripts/app/Solicitud/RequisicionCompra/Modals.js"></script>
+}

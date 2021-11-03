@@ -1,0 +1,124 @@
+﻿@model SIGEM_BIDSS.Models.tbParametro
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-info  mr-1"></i>
+            Detalle Parámetros
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="form-horizontal">
+        <div class="card-body">
+            <dl class="dl-horizontal card-columns">
+                <dt>
+                    @Html.DisplayNameFor(model => model.par_PathLogo)
+                </dt>
+                <dd>
+                    @{
+                        if (Model.par_PathLogo != null && Model.par_PathLogo != "")
+                        {
+                            <img src="@Url.Content(Model.par_PathLogo)" alt="Fotografía" class="img-rounded" width="200" height="200">
+                        }
+                        else
+                        {
+                            <img src="~/Content/img/NoImage.png" alt="Sin Fotografía" class="img-rounded" width="200" height="200">
+                        }
+                    }
+                <dt>
+                    @Html.DisplayNameFor(model => model.par_NombreEmpresa)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.par_NombreEmpresa)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.par_TelefonoEmpresa)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.par_TelefonoEmpresa)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.par_CorreoEmpresa)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.par_CorreoEmpresa)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.par_PorcentajeAdelantoSalario)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.par_PorcentajeAdelantoSalario)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.par_FrecuenciaAdelantoSalario)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.par_FrecuenciaAdelantoSalario)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.par_CorreoEmisor)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.par_CorreoEmisor)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.par_CorreoRRHH)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.par_CorreoRRHH)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.par_Password)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.par_Password)
+
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.par_Servidor)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.par_Servidor)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.par_Puerto)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.par_Puerto)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-10">
+            @Html.ActionLink("Editar", "Edit", new { id = Model.par_Id }, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/app/General.js"></script>
+

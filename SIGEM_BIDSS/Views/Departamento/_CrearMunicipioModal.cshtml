@@ -1,0 +1,35 @@
+﻿@model SIGEM_BIDSS.Models.tbMunicipio
+@using SIGEM_BIDSS.Models;
+
+
+<link href="~/Content/template/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/template/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.mun_codigo, htmlAttributes: new { @class = "control-label col-sm-8 , required" })
+            <input type="text" id="mun_codigo" name="mun_codigo" placeholder="" onkeypress="return soloNumeros(event)" class="form-control" min="1" maxlength="2" autocomplete="off" />
+            <div id="ValidationMunCodigoCreate">
+                @Html.ValidationMessageFor(model => model.mun_codigo)
+            </div>
+
+        </div>
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.mun_nombre, htmlAttributes: new { @class = "control-label col-sm-8 , required" })
+
+            <input type="text" onkeypress="return soloLetras(event)" id="mun_nombre" name="mun_nombre" placeholder="" class="form-control" maxlength="100" autocomplete="off" style="text-transform:uppercase;" onkeyup="noespaciosincio(this)" />
+            <div id="ValidationMunNombreCreate">
+                @Html.ValidationMessageFor(model => model.mun_nombre)
+            </div>
+
+        </div>
+        <div class="form-group col-md-5">
+            <button class="btn btn-primary" type="button" id="AgregarMunicipio">Añadir</button>
+        </div>
+    </div>
+
+
+</form>
+<br />
+

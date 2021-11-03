@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>500 Error Page</h1>
+                </div>
+                <div class="col-sm-6">
+
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="error-page">
+            <h2 class="headline text-danger">500</h2>
+
+            <div class="error-content">
+                <h3><i class="fa fa-exclamation-triangle text-danger"></i> Oops! Something went wrong.</h3>
+                @{
+                    var _url = "";
+
+                    try
+                    {
+                        var _controller = TempData["controllerName"].ToString();
+                        var _action = TempData["actionName"].ToString();
+                        var _value = TempData["idValue"].ToString();
+
+                        if (_value == "" || _value == null)
+                        {
+                            _url = Url.Action(_action, _controller);
+                        }
+                        else
+                        {
+                            _url = Url.Action(_action, _controller, new { _tipsol_Id = _value });
+                        }
+
+                    }
+                    catch (Exception Ex)
+                    {
+                        var _controller = "";
+                        var _action = "";
+                        var _value = "";
+                        _url = "";
+                    }
+
+
+                }
+                <p>
+                    We will work on fixing that right away.
+                    Meanwhile, you may <a id="btnhref" href="@_url">return to dashboard</a> or try using the search form.
+                </p>
+
+
+            </div>
+        </div>
+        <!-- /.error-page -->
+
+    </section>
+    <!-- /.content -->
+</div>
+<input id="btnWork" type="hidden" />
+
+@section Scripts{
+    <script>
+      window.addEventListener("beforeunload", function (e) {
+  var confirmationMessage = "\o/";
+
+  (e || window.event).returnValue = confirmationMessage;     //Gecko + IE
+  return confirmationMessage;                                //Webkit, Safari, Chrome etc.
+});
+    </script>
+}

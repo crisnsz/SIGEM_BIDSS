@@ -1,0 +1,99 @@
+﻿@model SIGEM_BIDSS.Models.tbLiquidacionAnticipoViaticoDetalle
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbLiquidacionAnticipoViaticoDetalle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Lianvide_FechaGasto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lianvide_FechaGasto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lianvide_MontoGasto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lianvide_MontoGasto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lianvide_Concepto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lianvide_Concepto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lianvide_Archivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lianvide_Archivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lianvide_UsuarioCrea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lianvide_UsuarioCrea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lianvide_FechaCrea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lianvide_FechaCrea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lianvide_UsuarioModifica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lianvide_UsuarioModifica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lianvide_FechaModifica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lianvide_FechaModifica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbLiquidacionAnticipoViatico.Lianvi_Correlativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbLiquidacionAnticipoViatico.Lianvi_Correlativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbTipoViatico.tpv_Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbTipoViatico.tpv_Descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Lianvide_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

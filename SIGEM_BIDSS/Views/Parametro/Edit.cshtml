@@ -1,0 +1,169 @@
+﻿@model SIGEM_BIDSS.Models.tbParametro
+@using SIGEM_BIDSS.Models
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-upload mr-1"></i>
+            Editar Parámetro
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+
+    @using (Html.BeginForm("Edit", "Parametro", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmEditParametro" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.par_PathLogo)
+        <div class="form-horizontal">
+            <div class="card-body">
+                @Html.ValidationSummary(true, null, new { @class = "text-danger" })
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <div class="col-md-6 card-body box-profile">
+                            @{if (Model.par_PathLogo != null && Model.par_PathLogo != "")
+                                {
+                                    <img src="@Url.Content(Model.par_PathLogo)" class="product-image" id="imgpreview" width="280" height="230" style="border-width: 0px;" />
+
+                                }
+                                else
+                                {
+                                    <img src="~/Content/img/descarga.jpg" class="product-image img-circle" id="imgpreview" width="280" height="230" style="border-width: 0px;" />
+
+                                }
+                            }
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.par_PathLogo, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div class="custom-file col-md-11">
+                                <input id="CargarFoto" value="Cargar Logo" name="FotoPath" type="file" class="custom-file-input col-md-6">
+                                <label id="lblCargarFoto" style="width:400px" class="custom-file-label" for="CargarFoto">
+                                    @if (Model.par_PathLogo != null && Model.par_PathLogo != "")
+                                    {@Url.Content(Model.par_PathLogo).Substring(13, 5)}
+                                </label>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.par_PathLogo, null, new { @class = "text-danger", @id = "errorlogo" })
+                        </div>
+                    </div>
+                </div>
+
+                @Html.HiddenFor(model => model.par_Id)
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_NombreEmpresa, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_NombreEmpresa, new { htmlAttributes = new { @class = "form-control", @maxlength = "100", @autocomplete = "off", onkeypress = "return soloLetras(event)", @style = "text-transform:uppercase;" } })
+                            @Html.ValidationMessageFor(model => model.par_NombreEmpresa, null, new { @class = "text-danger", id = "errornombreempresa" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_TelefonoEmpresa, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_TelefonoEmpresa, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.par_TelefonoEmpresa, null, new { @class = "text-danger", id = "errortelefonoempresa" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_CorreoEmpresa, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_CorreoEmpresa, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @autocomplete = "off" } })
+                            <p id="emailOK" style="color:red">@Html.ValidationMessageFor(model => model.par_CorreoEmpresa, "", new { @class = "text-danger" })</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_CorreoEmisor, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_CorreoEmisor, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @autocomplete = "off" } })
+                            <p id="emailEoK" style="color:red">@Html.ValidationMessageFor(model => model.par_CorreoEmisor, "", new { @class = "text-danger" })</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_PorcentajeAdelantoSalario, htmlAttributes: new { @class = "control-label col-md-8" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_PorcentajeAdelantoSalario, new { htmlAttributes = new { @class = "form-control", @maxlength = "3", @type = "text", @autocomplete = "off", @onkeypress = "return soloNumerosP(event)", @onChange = "MASK(this,this.value,'-###,###,###,##0.00',1)", id = "porcentaje" } })
+                            @Html.ValidationMessageFor(model => model.par_PorcentajeAdelantoSalario, null, new { @class = "text-danger", id = "errorPorcentaje" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_FrecuenciaAdelantoSalario, htmlAttributes: new { @class = "control-label col-md-8" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_FrecuenciaAdelantoSalario, new { htmlAttributes = new { @class = "form-control", @minlength = "2", @type = "text", @autocomplete = "off", @onkeypress = "return soloNumeros(event)", id = "frecuencia" } })
+                            @Html.ValidationMessageFor(model => model.par_FrecuenciaAdelantoSalario, null, new { @class = "text-danger", id = "errorfrecuencia" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_Password, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_Password, new { htmlAttributes = new { @class = "form-control", @minlength = "8", @maxlength = "20", @autocomplete = "off", onkeypress = "return Passworddd(event)", @type = "password" } })
+                            @Html.ValidationMessageFor(model => model.par_Password, null, new { @class = "text-danger", id = "errorpassword" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_CorreoRRHH, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_CorreoRRHH, new { htmlAttributes = new { @class = "form-control", @maxlength = "50", @autocomplete = "off" } })
+                            <p id="emailEoKi" style="color:red">@Html.ValidationMessageFor(model => model.par_CorreoRRHH, "", new { @class = "text-danger" })</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_Puerto, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_Puerto, new { htmlAttributes = new { @class = "form-control", @minlength = "2", @maxlength = "10", @autocomplete = "off", @onkeypress = "return soloNumeros(event)", @type = "text" } })
+                            @Html.ValidationMessageFor(model => model.par_Puerto, null, new { @class = "text-danger", id = "errorPuerto" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.par_Servidor, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.par_Servidor, new { htmlAttributes = new { @class = "form-control", @maxlength = "150", @autocomplete = "off" } })
+                            <p id="emailSer" style="color:red">@Html.ValidationMessageFor(model => model.par_Servidor, "", new { @class = "text-danger" })</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-10">
+                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/app/Parametros.js"></script>
+
+
+    <script src="~/Content/template/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="~/Content/template/plugins/input-mask/jquery.inputmask.js"></script>
+
+    <script type="text/javascript">
+        $('#par_TelefonoEmpresa').inputmask('(999) 9999-9999')
+
+        $(document).ready(function () {
+            bsCustomFileInput.init();
+        });
+    </script>
+
+</div>
+

@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS2001: No se encontró el archivo de origen 'C:\GitHub\SIGEM_BIDSS\SIGEM_BIDSS\Controllers\UnidadMedidaController.cs'.
+dotnet_diagnostic.CS2001.severity = error

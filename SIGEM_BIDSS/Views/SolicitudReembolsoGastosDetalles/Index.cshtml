@@ -1,0 +1,66 @@
+﻿@model IEnumerable<SIGEM_BIDSS.Models.tbSolicitudReembolsoGastosDetalle>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ReemgaDet_FechaGasto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReemgaDet_MontoGasto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReemgaDet_Concepto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReemgaDet_Archivo)
+        </th>
+     
+        <th>
+            @Html.DisplayNameFor(model => model.tbSolicitudReembolsoGastos.Reemga_Correlativo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbTipoViatico.tpv_Descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReemgaDet_FechaGasto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReemgaDet_MontoGasto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReemgaDet_Concepto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReemgaDet_Archivo)
+        </td>
+  
+        <td>
+            @Html.DisplayFor(modelItem => item.tbSolicitudReembolsoGastos.Reemga_Correlativo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbTipoViatico.tpv_Descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ReemgaDet_Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ReemgaDet_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ReemgaDet_Id })
+        </td>
+    </tr>
+}
+
+</table>

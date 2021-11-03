@@ -1,0 +1,142 @@
+﻿@model SIGEM_BIDSS.Models.tbProducto
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-info  mr-1"></i>
+            Detalle Producto
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="form-horizontal">
+        <div class="card-body">
+            <dl class="dl-horizontal card-columns">
+                <dt>
+                    @Html.DisplayNameFor(model => model.prod_Codigo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.prod_Codigo)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.prod_CodigoBarras)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.prod_CodigoBarras)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.prod_Descripcion)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.prod_Descripcion)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.prod_Marca)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.prod_Marca)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.prod_Modelo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.prod_Modelo)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.prod_Talla)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.prod_Talla)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.prod_Color)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.prod_Color)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.prod_EsActivo)
+                </dt>
+
+                <dd>
+                    @if (Model.prod_EsActivo == true)
+                    {
+                        <p> Activo</p>
+                    }
+                    else
+                    {
+                        <p>Inactivo</p>
+                    }
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.prod_RazonInactivacion)
+                </dt>
+                <dd>
+                    @if (Model.prod_EsActivo == true)
+                    {
+                        <p>No aplica</p>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.prod_RazonInactivacion)
+
+                    }
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.tbUnidadMedida.uni_Descripcion)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbUnidadMedida.uni_Descripcion)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.tbProductoSubcategoria.tbProductoCategoria.pcat_Descripcion)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbProductoSubcategoria.tbProductoCategoria.pcat_Descripcion)
+                </dd>
+
+                <dt>
+                    Proveedor
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.tbProveedor.prov_Nombre)
+                </dd>
+
+            </dl>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-10">
+            @Html.ActionLink("Editar", "Edit", new { id = Model.prod_Id }, new { @class = "btn btn-primary btn-sm" })
+
+        </div>
+    </div>
+</div>
+
+

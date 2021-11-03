@@ -1,0 +1,73 @@
+﻿@model IEnumerable<SIGEM_BIDSS.Models.tbTipoMovimiento>
+
+@{
+    ViewBag.Title = "Listado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/template/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/template/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-list mr-1"></i>
+            Listado Tipo Movimiento
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink(" Nuevo", "Create", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="dataTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tipmo_id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tipmo_Movimiento)
+                    </th>
+
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tipmo_id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tipmo_Movimiento)
+                        </td>
+
+
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.tipmo_id }, new { @class = "btn btn-primary btn-xs" })
+                            @Html.ActionLink("Detalles", "Details", new { id = item.tipmo_id }, new { @class = "btn btn-default btn-xs" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+
+    <!-- DataTables -->
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/template/plugins/datatables/dataTables.bootstrap4.js"></script>
+    <!-- JS de Funciones Generales -->
+    <script src="~/Scripts/app/General.js"></script>
+    <script src="~/Scripts/app/DataTables.js"></script>
+
+}
+
+

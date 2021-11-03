@@ -1,0 +1,73 @@
+﻿@model SIGEM_BIDSS.Models.tbPuesto
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>tbPuesto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.pto_Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pto_Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pto_UsuarioCrea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pto_UsuarioCrea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pto_FechaCrea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pto_FechaCrea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pto_UsuarioModifica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pto_UsuarioModifica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pto_FechaModifica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pto_FechaModifica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbArea.are_Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbArea.are_Descripcion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

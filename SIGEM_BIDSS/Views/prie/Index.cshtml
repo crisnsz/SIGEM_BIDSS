@@ -1,0 +1,100 @@
+﻿@model IEnumerable<SIGEM_BIDSS.Models.tbLiquidacionAnticipoViatico>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Lianvi_Correlativo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lianvi_FechaLiquida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lianvi_FechaInicioViaje)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lianvi_FechaFinViaje)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lianvi_Comentario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lianvi_RazonRechazo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lianvi_UsuarioCrea)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lianvi_FechaCrea)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lianvi_UsuarioModifica)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lianvi_FechaModifica)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbAnticipoViatico.Anvi_Correlativo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbEstado.est_Descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lianvi_Correlativo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lianvi_FechaLiquida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lianvi_FechaInicioViaje)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lianvi_FechaFinViaje)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lianvi_Comentario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lianvi_RazonRechazo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lianvi_UsuarioCrea)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lianvi_FechaCrea)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lianvi_UsuarioModifica)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lianvi_FechaModifica)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbAnticipoViatico.Anvi_Correlativo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbEstado.est_Descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Lianvi_Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Lianvi_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Lianvi_Id })
+        </td>
+    </tr>
+}
+
+</table>

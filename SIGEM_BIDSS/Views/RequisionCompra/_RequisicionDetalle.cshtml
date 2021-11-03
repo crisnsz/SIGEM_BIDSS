@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SIGEM_BIDSS.Models.tbRequisionCompraDetalle>
+
+
+<table class="table table-bordered table-hover table-responsive" id="dataTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.prod_Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reqde_Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reqde_Justificacion)
+            </th>
+            <th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbProducto.prod_Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reqde_Cantidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reqde_Justificacion)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,106 @@
+﻿@model IEnumerable<SIGEM_BIDSS.Models.tbSueldo>
+@using System.Globalization;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+
+<link href="~/Content/template/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/template/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-list mr-1"></i>
+            Listado de sueldos
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink(" Nuevo", "Create", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="dataTable">
+            <thead>
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.sue_Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.emp_Id)
+                    </th>
+                    <th>
+                        Sueldo
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tmo_Id)
+                    </th>
+
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.sue_Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbEmpleado.emp_Nombres) @Html.DisplayFor(modelItem => item.tbEmpleado.emp_Apellidos)
+                        </td>
+                        <td>
+                            @{
+                                string Money = "";
+                                string myDecimal = item.sue_Cantidad.ToString();
+                                NumberFormatInfo nfi = new CultureInfo("", true).NumberFormat;
+                                nfi.CurrencyDecimalDigits = 2;
+                                nfi.NumberDecimalDigits = 3;
+                                nfi.CurrencySymbol = "";
+                                if (!string.IsNullOrEmpty(myDecimal))
+                                {
+                                    decimal dDecimal = decimal.Parse(myDecimal);
+                                    Money = dDecimal.ToString("c", nfi);
+                                }
+                            }
+                            @Money
+
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbMoneda.tmo_Nombre)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.sue_Id }, new { @class = "btn btn-primary btn-xs" })
+                            @Html.ActionLink("Detalles", "Details", new { id = item.sue_Id }, new { @class = "btn btn-default btn-xs" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+
+    <!-- DataTables -->
+    <script src="~/Scripts/app/DataTables.js"></script>
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/template/plugins/datatables/dataTables.bootstrap4.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/template/dist/js/adminlte.min.js"></script>
+    <!-- JS de Funciones Generales -->
+    <script src="~/Scripts/app/General.js"></script>
+
+
+
+}

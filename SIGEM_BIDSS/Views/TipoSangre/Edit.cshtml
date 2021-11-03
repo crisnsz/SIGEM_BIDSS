@@ -1,0 +1,79 @@
+﻿@model SIGEM_BIDSS.Models.tbTipoSangre
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .validation-error {
+        color: red;
+        font-size: small;
+    }
+
+    .validation-summary-errors {
+        color: red;
+        font-size: small;
+    }
+
+    .required:after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+
+    #tps_nombre {
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-refresh  mr-1"></i>
+            Editar Tipo Sangre
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(model => Model.tps_Id)
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="card-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.tps_Descripcion, "Nombre", htmlAttributes: new { @class = "control-label col-sm-2" })
+                    <div class="col-sm-4">
+                        @Html.EditorFor(model => model.tps_Descripcion, new { htmlAttributes = new { @class = "form-control", maxlength = "3", autocomplete = "off", @style = "text-transform:uppercase;", @onkeyup = "this.value=this.value.toUpperCase()", @onkeypress = "return soloLetras(event)" } })
+                        <p style="color:red">@Html.ValidationMessageFor(model => model.tps_Descripcion, "", new { @class = "text-danger" , id = "description" })</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-10">
+                        <input type="submit" value="Guardar" id="Save" class="btn btn-primary" />
+                        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    }
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script src="~/Scripts/app/General_PCAE.js"></script>
+<script>
+    $("#tps_Descripcion").keyup(function () {
+        $('#description').hide();
+    });
+
+</script>

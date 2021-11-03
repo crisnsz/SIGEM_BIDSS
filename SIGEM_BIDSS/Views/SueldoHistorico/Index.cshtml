@@ -1,0 +1,145 @@
+﻿@model IEnumerable<SIGEM_BIDSS.Models.tbSueldoHistorico>
+@using SIGEM_BIDSS.Models
+@using System.Globalization;
+
+
+@{
+    tbEmpleado emp = new tbEmpleado();
+}
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/template/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/template/plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-list mr-1"></i>
+            Listado históricos de sueldo
+        </h3>
+
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="dataTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.sue_Id)
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Apellido
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tmo_Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.sue_Cantidad)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.sue_Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbEmpleado.emp_Nombres)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbEmpleado.emp_Apellidos)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbMoneda.tmo_Nombre)
+                        </td>
+                        <td>
+                            @{
+                                string Money = "";
+                                string myDecimal = item.sue_Cantidad.ToString();
+                                NumberFormatInfo nfi = new CultureInfo("", true).NumberFormat;
+                                nfi.CurrencyDecimalDigits = 2;
+                                nfi.NumberDecimalDigits = 3;
+                                nfi.CurrencySymbol = "";
+                                if (!string.IsNullOrEmpty(myDecimal))
+                                {
+                                    decimal dDecimal = decimal.Parse(myDecimal);
+                                    Money = dDecimal.ToString("c", nfi);
+                                }
+                            }
+                            @Money
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+
+    <!-- Bootstrap 4 -->
+    <script src="~/Content/template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/Content/template/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Content/template/plugins/datatables/dataTables.bootstrap4.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/template/dist/js/adminlte.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTable').DataTable(
+                {
+                    "searching": true,
+                    "lengthChange": true,
+                    "oLanguage": {
+                        "oPaginate": {
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior",
+                        },
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sEmptyTable": "No hay registros",
+                        "sInfoEmpty": "Mostrando 0 de 0 Entradas",
+                        "sSearch": "Buscar",
+                        "sInfo": "Mostrando _START_ a _END_ Entradas",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    }
+                });
+        });
+        $(function () {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            _isBool = $('#vSwal').val();
+            console.log(_isBool)
+            if (_isBool == "true") {
+                console.log("Verdadero")
+
+                Toast.fire({
+                    type: 'success',
+                    title: 'Se ha guardado con Exito.'
+                })
+            }
+            else {
+                console.log("Falso")
+            }
+        });
+    </script>
+}

@@ -1,0 +1,100 @@
+﻿@model SIGEM_BIDSS.Models.tbUnidadMedida
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input type="hidden" id="vSwal" value="@TempData["swalfunction"]" />
+<style>
+    .validation-error {
+        color: red;
+        font-size: small;
+    }
+
+    .validation-summary-errors {
+        color: red;
+        font-size: small;
+    }
+
+    .required:after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+
+    #uni_Descripcion {
+        text-transform: capitalize;
+    }
+    #uni_Abreviatura {
+        text-transform: capitalize;
+    }
+
+</style>
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-upload mr-1"></i>
+            Insertar Unidad Medida
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="card-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.uni_Descripcion, "Descripción", htmlAttributes: new { @class = "control-label col-sm-2" })
+                    <div class="col-sm-4">
+                        @Html.EditorFor(model => model.uni_Descripcion, new { htmlAttributes = new { @class = "form-control", maxlength = "150", autocomplete = "off", onkeypress = "return soloLetras(event)", onkeyup = "this.value=this.value.noespaciosincio(this)" } })
+                        <p style="color:red">@Html.ValidationMessageFor(model => model.uni_Descripcion, "", new { @class = "text-danger", @iD="descrip" })</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.uni_Abreviatura, "Abreviatura", htmlAttributes: new { @class = "control-label col-sm-2" })
+                    <div class="col-sm-4">
+                        @Html.EditorFor(model => model.uni_Abreviatura, new { htmlAttributes = new { @class = "form-control", maxlength = "5", autocomplete = "off", @onkeypress = "return soloLetras(event)", @onkeyup = "this.value=this.value.noespaciosincio(this)" } })
+                        <p style="color:red">@Html.ValidationMessageFor(model => model.uni_Abreviatura, "", new { @class = "text-danger" ,@Id="Unidad" })</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-10">
+                        <input type="submit" value="Guardar" id="Save" class="btn btn-primary" />
+                        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    }
+
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Content/template/plugins/datepicker/js/bootstrap-datepicker.min.js"></script>
+
+
+
+<script src="~/Content/template/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script src="~/Content/template/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="~/Scripts/app/ValidacionesGenerales.js"></script>
+<script src="~/Scripts/app/General_PCAE.js"></script>
+<script>
+    $("#uni_Descripcion").keyup(function () {
+        $('#descrip').hide();
+    });
+
+    $("#uni_Abreviatura").keyup(function () {
+        $('#Unidad').hide();
+    });
+
+</script>

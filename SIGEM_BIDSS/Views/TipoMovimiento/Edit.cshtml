@@ -1,0 +1,59 @@
+﻿@model SIGEM_BIDSS.Models.tbTipoMovimiento
+
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-refresh  mr-1"></i>
+           Editar Tipo Movimiento
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, htmlAttributes: new { @class = "btn btn-primary float-right" })
+            </li>
+        </ul>
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <!-- /.card-header -->
+        <div class="form-horizontal">
+            <div class="card-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.tipmo_id)
+                <div class="form-group">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.tipmo_Movimiento, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-sm-4">
+                            @Html.EditorFor(model => model.tipmo_Movimiento, new { htmlAttributes = new { @class = "form-control normalize textuppercase", @maxlength = "25", autocomplete = "off" } })
+                            @Html.ValidationMessageFor(model => model.tipmo_Movimiento, "", new { @class = "text-danger", id = "descrip" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Guardar" id="Save" class="btn btn-primary" />
+                            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+
+@section Scripts {
+    <script src="~/Scripts/app/ValidacionesGenerales.js"></script>
+    <script src="~/Scripts/app/General_PCAE.js"></script>
+    <script>
+        $("#tipmo_Movimiento").keyup(function () {
+            $('#descrip').hide();
+        });
+
+    </script>
+    }

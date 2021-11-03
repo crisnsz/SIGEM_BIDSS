@@ -1,0 +1,249 @@
+﻿@model SIGEM_BIDSS.Models.tbEmpleado
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var test = new SIGEM_BIDSS.Models.tbMunicipio();
+    var test1 = new SIGEM_BIDSS.Models.tbArea();
+}
+
+
+
+<input type="hidden" id="municipios" value="@ViewBag.muni" />
+<input type="hidden" id="selectedMun" value="@ViewBag.selectedMun" />
+<input type="hidden" id="selectedPuesto" value="@ViewBag.selectedPuesto" />
+@*<link href="~/Content/template/plugins/datepicker/datepicker3.css" rel="stylesheet" />*@
+<link href="~/Content/template/plugins/datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+<div class="card card-primary card-outline">
+    <div class="card-header d-flex p-0 ui-sortable-handle">
+        <h3 class="card-title p-3">
+            <i class="fa fa-upload mr-1"></i>
+            Editar Empleado
+        </h3>
+        <ul class="nav nav-pills ml-auto p-2">
+            <li class="nav-item">
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-primary" })
+            </li>
+        </ul>
+    </div>
+
+    @using (Html.BeginForm("Edit", "Empleado", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.HiddenFor(model => model.emp_UsuarioModifica, new { Value = "1" })
+        @Html.HiddenFor(model => model.emp_FechaModifica, new { Value = "2019-12-12" })
+        @Html.HiddenFor(model => model.emp_RazonInactivacion, new { Value = "----" })
+
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.emp_Id)
+        @Html.HiddenFor(model => model.est_Id)
+        @Html.HiddenFor(model => model.emp_PathImage)
+        @Html.HiddenFor(model => model.emp_FechaIngreso)
+        @Html.HiddenFor(model => model.emp_UsuarioCrea, new { Value = "1" })
+
+        <div class="form-horizontal">
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <div class="col-md-6 card-body box-profile">
+                            <div class="text-center">
+                                @{if (Model.emp_PathImage != null && Model.emp_PathImage != "")
+                                    {
+                                        <img src="@Url.Content(Model.emp_PathImage)" class="product-image" id="imgpreview" width="280" height="230" style="border-width: 0px;" />
+
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/img/descarga.jpg" class="product-image img-circle" id="imgpreview" width="280" height="230" style="border-width: 0px;" />
+
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.emp_PathImage, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div class="custom-file col-md-11">
+                                <input id="CargarFoto" value="Cargar Fotografía" name="FotoPath" type="file" class="custom-file-input col-md-6" accept="image/png, image/jpeg ,image/jpg" />
+                                <label id="lblCargarFoto" style="width:400px" class="custom-file-label" for="CargarFoto">
+                                    @if (Model.emp_PathImage != null && Model.emp_PathImage != "")
+                                    {@Url.Content(Model.emp_PathImage).Substring(22, 15)}
+                                  
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.emp_Nombres, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.emp_Nombres, new { htmlAttributes = new { @class = "form-control", maxLength = 100, @style = "text-transform:uppercase;", @onkeypress = "return soloLetras(event)", onkeyup = "this.value=this.value.toUpperCase(),noespaciosincio(this)" } })
+                            @Html.ValidationMessageFor(model => model.emp_Nombres, "", new { @class = "text-danger", id = "Nombres" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.emp_Apellidos, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.emp_Apellidos, new { htmlAttributes = new { @class = "form-control", maxLength = 100, @style = "text-transform:uppercase;", onkeyup = "this.value=this.value.toUpperCase(),noespaciosincio(this)" } })
+                            @Html.ValidationMessageFor(model => model.emp_Apellidos, "", new { @class = "text-danger", id = "Apellidos" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.emp_Sexo, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.DropDownList("emp_Sexo", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.emp_Sexo, "", new { @class = "text-danger", id = "Sexo" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.emp_FechaNacimiento, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.emp_FechaNacimiento, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.emp_FechaNacimiento, "", new { @class = "text-danger", id = "FechaNacimiento" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.emp_Identificacion, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.emp_Identificacion, new { htmlAttributes = new { @class = "form-control", @OnKeyPress = "return soloNumeros(event)" } })
+                            @Html.ValidationMessageFor(model => model.emp_Identificacion, "", new { @class = "text-danger", id = "Identificacion" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.tps_Id, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.DropDownList("tps_Id", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.tps_Id, "", new { @class = "text-danger", id = "TipoSangre" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.emp_Telefono, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.emp_Telefono, new { htmlAttributes = new { @class = "form-control", @OnKeyPress = "return soloNumeros(event)" } })
+                            @Html.ValidationMessageFor(model => model.emp_Telefono, "", new { @class = "text-danger", id = "Telefono" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.emp_CorreoElectronico, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.emp_CorreoElectronico, new { htmlAttributes = new { @class = "form-control", onkeyup = "this.value=this.value.toUpperCase(),noespaciosincio(this)" } })
+                            @Html.ValidationMessageFor(model => model.emp_CorreoElectronico, "", new { @class = "text-danger", id = "email" })
+
+
+
+
+                            <div id="emailOK" class="text-danger">
+                                <p style="color:red" class="text-danger"></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="control-label col-md-6">Área</label>
+                        <div class="col-md-11">
+                            @Html.DropDownList("are_Id", null, "Seleccione Área", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.tbPuesto.are_Id, "", new { @class = "text-danger", id = "Area" })
+                        </div>
+                    </div>
+                    <div id="" class="form-group col-md-6">
+                        @Html.LabelFor(model => model.pto_Id, "Puesto", new { @class = "control-label col-md-5" })
+                        <div class="col-md-11">
+                            @Html.DropDownList("pto_Id", null, "Seleccione Puesto", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.pto_Id, "", new { @class = "text-danger", id = "Puesto" })
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.emp_EsJefe, "¿Es Jefe?", htmlAttributes: new { @class = "control-label" })
+                        <div class="col-md-11">
+                            @Html.CheckBoxFor(model => model.emp_EsJefe, new { @class = "col-md-1" })
+                            @Html.ValidationMessageFor(model => model.emp_EsJefe, "", new { @class = "text-danger", id = "EsJefe" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.emp_Direccion, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.emp_Direccion, new { htmlAttributes = new { @class = "form-control", onkeyup = "this.value=this.value.toUpperCase(),noespaciosincio(this)" } })
+                            @Html.ValidationMessageFor(model => model.emp_Direccion, "", new { @class = "text-danger", id = "Direccion" })
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="control-label col-md-6">Departamento</label>
+                        <div class="col-md-11">
+                            @Html.DropDownList("dep_Codigo", null, "Seleccione", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(muni => test.dep_codigo, "", new { @class = "text-danger", id = "Departamento" })
+                        </div>
+
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.mun_codigo, "Municipio", new { @class = "control-label col-md-6" })
+                        <div class="col-md-11">
+                            @Html.DropDownList("mun_codigo", null, "Seleccione", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.mun_codigo, "", new { @class = "text-danger", id = "Municipio" })
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-10">
+                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/template/plugins/datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Content/template/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="~/Content/template/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="~/Scripts/app/ValidacionesGenerales.js"></script>
+    <script src="~/Scripts/app/General_PCAE.js"></script>
+    <script src="~/Scripts/app/Empleados.js"></script>
+
+
+    <script type="text/javascript">
+        $('#emp_Telefono').inputmask('(999) 9999-9999')
+
+        $(document).ready(function () {
+            bsCustomFileInput.init();
+        });
+    </script>
+
+</div>
+
